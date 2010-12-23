@@ -4,11 +4,12 @@
 		<title>jGen demo</title>
 		<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
 		<script type="text/javascript" src="scripts/oop.js"></script>
-		<script type="text/javascript" src="scripts/XMLHttpRequest.js"></script>
 		<script type="text/javascript" src="scripts/string.js"></script>
 		<script type="text/javascript" src="scripts/html.js"></script>
 		<script type="text/javascript" src="scripts/math.js"></script>
 		<script type="text/javascript" src="scripts/map.js"></script>
+		<script type="text/javascript" src="scripts/editor.js"></script>
+		
 		<script type="text/javascript">
 			var TEngine = Class.create({
 				callback: null,
@@ -58,36 +59,14 @@
 				}
 			});
 			
+		</script>
+		
+		<script type="text/javascript">
 			function start() {
-				
-				var oViewPort = document.querySelector('.viewPort');
-				var oMap = new TMap(oViewPort, oViewPort.offsetWidth, oViewPort.offsetHeight);
-				oMap.loadMap('map.xml', function() {
-					
-					var oLibraryViewPort = document.querySelector('.leftPanel');
-					for (var sTileId in oMap.tiles) {
-						var oTile = oMap.tiles[sTileId];
-						var oLibraryItem = oLibraryViewPort.ownerDocument.createElement('div');
-						oLibraryItem.tileId = sTileId;
-						oLibraryItem.className = 'libraryItem';
-						var oLibraryItemImg = oLibraryViewPort.ownerDocument.createElement('img');
-						oLibraryItemImg.setAttribute('src', oTile.tileUrl);
-						oLibraryItem.appendChild(oLibraryItemImg);
-						oLibraryViewPort.appendChild(oLibraryItem);
-					}
-					
-					var sBrushObject = '';
-					
-					oLibraryViewPort.addEventListener('mousedown', function(oEvent) {
-						if (oEvent.srcElement.tagName.toLowerCase() == 'img') {
-							var oSelectedElement = oLibraryViewPort.querySelector('.selected');
-							if (oSelectedElement) oSelectedElement.removeClass('selected');
-							oEvent.srcElement.parentNode.addClass('selected');
-							sBrushObject = oEvent.srcElement.parentNode.tileId;
-						}
-					}, false);
-					
-					oMap.render(0, 0);
+				var oEditor = new TEditor();
+				oEditor.loadLibrary('library/library.xml', function() {
+					this.renderPalette(document.querySelector('.palette'));
+					this.renderWorkspace(document.querySelector('.viewPort'));
 					
 					var iHeight = 0;
 					var iScrollX = iNewScrollX = 0;
@@ -95,25 +74,18 @@
 					var iCaptureX = iCaptureY = -1;
 					
 					window.addEventListener('resize', function() {
-						oMap.resizeViewPort(oViewPort.offsetWidth, oViewPort.offsetHeight);
-						oMap.render(iScrollX, iScrollY);
+						oEditor.map.resizeViewPort(oEditor.map.viewPort.offsetWidth, oEditor.map.viewPort.offsetHeight);
+						oEditor.map.render(iScrollX, iScrollY);
 					}, false);
-					
+						
 					var iSecond = (new Date()).getSeconds();
 					var iCounter = 0;
 					var oFPSWindow = document.querySelector('.fpsWindow');
+						
+					(new TEngine(oEditor.map.viewPort.parentNode, function(oGameState) {
 					
-					(new TEngine(oViewPort, function(oGameState) {
-						
 						iCounter++;
-						
-						/*
-						if (oGameState.keys[39]) oMap.sprites[0].rotateTo(1);
-						if (oGameState.keys[37]) oMap.sprites[0].rotateTo(-1);
-						if (oGameState.keys[38]) oMap.sprites[0].moveForward(1);
-						if (oGameState.keys[40]) oMap.sprites[0].moveForward(-1);
-						*/
-						
+					
 						if (oGameState.mouse.down) {
 							if ((oGameState.metaKey) && (iCaptureX == -1) && (iCaptureY == -1)) {
 								iCaptureX = oGameState.mouse.x + iScrollX;
@@ -122,13 +94,12 @@
 								iNewScrollX = (iCaptureX - oGameState.mouse.x);
 								iNewScrollY = (iCaptureY - oGameState.mouse.y);
 								if ((iNewScrollX != iScrollX) || (iNewScrollY != iScrollY)) {
-									oMap.render(iNewScrollX, iNewScrollY);
+									oEditor.map.render(iNewScrollX, iNewScrollY);
 									iScrollX = iNewScrollX;
 									iScrollY = iNewScrollY;
 								}
-							} else if (sBrushObject) {
-								window.top.status = iNewScrollX;
-								var a = oMap.screen2map(
+							} else if (oEditor.selectedObject) {
+								var a = oEditor.map.screen2map(
 									oGameState.mouse.x,
 									oGameState.mouse.y,
 									iScrollX,
@@ -136,24 +107,13 @@
 								);
 								
 								var sIndex = a[1] + '.' + a[0];
-								//var sIndex2 = (parseInt(a[1], 10) - 1) + '.' + (parseInt(a[0], 10) - 1);
-								
-								//alert([sIndex, sIndex2]);
-								
-								oMap.objects[sIndex] = sBrushObject;
-								//oMap.objects[sIndex2] = sBrushObject;
-								
-								if (oMap.mapData[sIndex]) {
-									oMap.mapData[sIndex].parentNode.removeChild(oMap.mapData[sIndex]);
-									delete(oMap.mapData[sIndex]);
+								oEditor.map.objects[sIndex] = (oEditor.selectedObject.name);
+								if (oEditor.map.mapData[sIndex]) {
+									oEditor.map.mapData[sIndex].parentNode.removeChild(oEditor.map.mapData[sIndex]);
+									delete(oEditor.map.mapData[sIndex]);
 								}
-								/*
-								if (oMap.mapData[sIndex2]) {
-									oMap.mapData[sIndex2].parentNode.removeChild(oMap.mapData[sIndex2]);
-									delete(oMap.mapData[sIndex2]);
-								}
-								*/
-								oMap.render(iScrollX, iScrollY);
+								
+								oEditor.map.render(iScrollX, iScrollY);
 							}
 						} else {  
 							iCaptureX = -1;
@@ -163,8 +123,8 @@
 						/*
 						if (iHeight != oGameState.height) {
 							iHeight = oGameState.height;
-							for (var sIndex in oMap.mapData) {
-								var oTile = oMap.mapData[sIndex];
+							for (var sIndex in oEditor.map.mapData) {
+								var oTile = oEditor.map.mapData[sIndex];
 								if (oTile.offsetHeight == 32) {
 									oTile.style.opacity = iHeight / 100;
 								}
@@ -172,50 +132,20 @@
 							 
 						}
 						*/
-						
 						var iNewSecond = (new Date()).getSeconds();
 						if (iNewSecond != iSecond) {
 							iSecond = iNewSecond;
 							oFPSWindow.innerHTML = 'FPS: ' + iCounter;
 							iCounter = 0;
 						}
-						
-							
-						/*
-						
-						if (oGameState.keys[32]) {
-							if (window.bullet) return;
-							window.bullet = true;
-							
-							var oBullet = new TBullet(oMap, 'sprite-bullet');
-							
-							var aPoint = Math.circle_point(
-								(oMap.sprites[0].posX + oMap.sprites[0].sprite.offsetWidth / 2),
-								(oMap.sprites[0].posY + oMap.sprites[0].sprite.offsetHeight / 2),
-								Math.deg2rad(oMap.sprites[0].rotationDeg + 90),
-								30
-							);
-							
-							oBullet.move(aPoint[0], aPoint[1]);
-							oBullet.rotate(oMap.sprites[0].rotationDeg);
-							oBullet.show();
-							oMap.addSprite(oBullet);
-							
-							window.bullet = setTimeout(function() {
-								clearTimeout(window.bullet);
-								window.bullet = 0;
-							}, 500);
-						}
-						*/
-						
+					
 					})).start();
 				});
 			}
 		</script>
 	</head>
 	<body onload="start();">
-		<div class="leftPanel">
-		</div>
+		<div class="palette"></div>
 		<div class="viewPort">
 			<div class="fpsWindow"></div>
 		</div>

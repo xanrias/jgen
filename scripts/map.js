@@ -136,7 +136,7 @@ var TMap = Class.create({
 		var oXMLHttpRequest = new XMLHttpRequest;
 		oXMLHttpRequest.open("GET", sMapUrl, true);
 		oXMLHttpRequest.onreadystatechange = function() {
-			if (this.readyState != XMLHttpRequest.DONE) return;
+			if (this.readyState != 4) return;
 			oThis.processMap(this.responseXML.documentElement, fCallBack);
 		}
 		oXMLHttpRequest.send(null);
