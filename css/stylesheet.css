@@ -8,42 +8,48 @@ html, body {
 	-webkit-user-select: none;
 }
 
-.leftPanel {
+.palette {
 	position: absolute;
 	left: 0px;
 	top: 0px;
 	bottom: 0px;
-	width: 249px;
+	width: 225px;
 	overflow: auto;
 	border-right: 1px solid #515151;
 }
 
-.libraryItem {
+.paletteItem {
 	width: 64px;
 	height: 64px;
-	margin: 6px;
-	border: 1px solid #CDCDCD;
 	float: left;
-}
-
-.libraryItem.selected {
-	border: 1px solid red;
-}
-
-.libraryItem img {
-	width: 60px;
-	height: 60px;
-	top: 50%;
-	left: 50%;
 	cursor: pointer;
-	position: relative;
-	margin-top: -30px;
-	margin-left: -30px;
+	margin-top: 3px;
+	margin-left: 3px;
+	border-radius: 4px;
+	border: 1px solid #DFDFDF;
+}
+
+.paletteItem:hover {
+	background-color: #F3F3F3;
+}
+
+.paletteItem.selected {
+	background-color: #CDCDCD;
+	background-image: url('../media/item.gif');
+}
+
+.paletteItem div {
+	width: 64px;
+	height: 64px;
+	cursor: pointer;
+	background-repeat: no-repeat;
+	background-position: center center;
+	-webkit-background-size: 54px 54px;
 }
 
 .viewPort {
 	position: absolute;
-	left: 250px;
+	left: 226px;
 	top: 0px;
 	right: 26px;
 	bottom: 0px;
