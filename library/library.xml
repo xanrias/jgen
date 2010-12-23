@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library>
+	<object id="bush1" uri="bushes/1.png" />
+	<object id="bush2" uri="bushes/2.png" />
+	<object id="bush3" uri="bushes/3.png" />
+	<object id="bush4" uri="bushes/4.png" />
+	<object id="bush5" uri="bushes/5.png" />
+	<object id="bush6" uri="bushes/6.png" />
+	<object id="bush7" uri="bushes/7.png" />
+	<object id="bush8" uri="bushes/8.png" />
+	<object id="bush9" uri="bushes/9.png" />
+	<object id="bush10" uri="bushes/10.png" />
+	
+	<object id="p8png" uri="unsorted/8.png" />
+	<object id="p7png" uri="unsorted/7.png" />
+	<object id="p6png" uri="unsorted/6.png" />
+	<object id="p5png" uri="unsorted/5.png" />
+	<object id="p4png" uri="unsorted/4.png" />
+	<object id="p3png" uri="unsorted/3.png" />
+	<object id="p2png" uri="unsorted/2.png" />
+	<object id="trrrr" uri="unsorted/trrrr.gif" />
 	<object id="road1" uri="unsorted/road1.gif" />
 	<object id="road2" uri="unsorted/road2.gif" />
 	<object id="road3" uri="unsorted/road3.gif" />

@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map tile-width="66" tile-height="34" map-width="100" map-height="100">
+<map tile-width="64" tile-height="32" map-width="100" map-height="100">
 	
 	<tiles>
+	<tile id="bush1" uri="library/bushes/1.png" />
+	<tile id="bush2" uri="library/bushes/2.png" />
+	<tile id="bush3" uri="library/bushes/3.png" />
+	<tile id="bush4" uri="library/bushes/4.png" />
+	<tile id="bush5" uri="library/bushes/5.png" />
+	<tile id="bush6" uri="library/bushes/6.png" />
+	<tile id="bush7" uri="library/bushes/7.png" />
+	<tile id="bush8" uri="library/bushes/8.png" />
+	<tile id="bush9" uri="library/bushes/9.png" />
+	<tile id="bush10" uri="library/bushes/10.png" />
+		<tile id="p8png" uri="library/unsorted/8.png" />
+		<tile id="p7png" uri="library/unsorted/7.png" />
+		<tile id="p6png" uri="library/unsorted/6.png" />
+		<tile id="p5png" uri="library/unsorted/5.png" />
+		<tile id="p4png" uri="library/unsorted/4.png" />
+		<tile id="p3png" uri="library/unsorted/3.png" />
+		<tile id="p2png" uri="library/unsorted/2.png" />
+		<tile id="trrrr" uri="library/unsorted/trrrr.gif" />
 		<tile id="road1" uri="library/unsorted/road1.gif" />
 		<tile id="road2" uri="library/unsorted/road2.gif" />
 		<tile id="road3" uri="library/unsorted/road3.gif" />
