@@ -2,25 +2,25 @@
 <map tile-width="66" tile-height="34" map-width="100" map-height="100">
 	
 	<tiles>
-		<tile id="road1" uri="media/road1.gif" />
-		<tile id="road2" uri="media/road2.gif" />
-		<tile id="road3" uri="media/road3.gif" />
-		<tile id="tree6" uri="media/tree_6.png" />
+		<tile id="road1" uri="media/tiles/road1.gif" />
+		<tile id="road2" uri="media/tiles/road2.gif" />
+		<tile id="road3" uri="media/tiles/road3.gif" />
+		<tile id="tree6" uri="media/tiles/tree_6.png" />
 		
-		<tile id="x1" uri="media/1.png?ыы" />
-		<tile id="grass" uri="media/grass.gif" />
-		<tile id="ground" uri="media/ground.gif" />
-		<tile id="tree" uri="media/tree.gif" />
-		<tile id="cube" uri="media/cube.gif" />
-		<tile id="mmm" uri="media/mmm.png" />
-		<tile id="mmm2" uri="media/mmm2.png" />
-		<tile id="tre" uri="media/tree.png" />
-		<tile id="treee" uri="media/treee.png" />
-		<tile id="xtree" uri="media/xtree.png?xs" />
-		<tile id="rr" uri="media/rr.png?xs" />
-		<tile id="huge" uri="media/huge.png?xxs" />
-		<tile id="xttt" uri="media/xttt.png?xs" />
-		<tile id="bla" uri="media/bla.png?xs" />
+		<tile id="x1" uri="media/tiles/1.png?ыы" />
+		<tile id="grass" uri="media/tiles/grass.gif" />
+		<tile id="ground" uri="media/tiles/ground.gif" />
+		<tile id="tree" uri="media/tiles/tree.gif" />
+		<tile id="cube" uri="media/tiles/cube.gif" />
+		<tile id="mmm" uri="media/tiles/mmm.png" />
+		<tile id="mmm2" uri="media/tiles/mmm2.png" />
+		<tile id="tre" uri="media/tiles/tree.png" />
+		<tile id="treee" uri="media/tiles/treee.png" />
+		<tile id="xtree" uri="media/tiles/xtree.png?xs" />
+		<tile id="rr" uri="media/tiles/rr.png?xs" />
+		<tile id="huge" uri="media/tiles/huge.png?xxs" />
+		<tile id="xttt" uri="media/tiles/xttt.png?xs" />
+		<tile id="bla" uri="media/tiles/bla.png?xs" />
 		
 		<tile id="hill1" uri="media/tiles/hills/1.png" />
 		<tile id="hill2" uri="media/tiles/hills/2.png" />
@@ -199,58 +199,6 @@
 		
 	</tiles>
 	
-	<sprites>
-		
-		<sprite id="warrior" width="87" height="80" uri="media/mechwarrior.png">
-			<layer name="walk-south" frames="0,0;0,80;0,160;0,240;0,320;0,400;0,480;0,560;0,640;0,720;0,800" />
-			<layer name="walk-south-west" frames="87,0;87,80;87,160;87,240;87,320;87,400;87,480;87,560;87,640;87,720;87,800;87,880;87,960;87,1040;87,1120;87,1200;87,1280" />
-			<layer name="walk-west" frames="174,0;174,80;174,160;174,240;174,320;174,400;174,480;174,560;174,640;174,720" />
-			<layer name="walk-north-west" frames="261,0;261,80;261,160;261,240;261,320;261,400;261,480;261,560;261,640;261,720;261,800;261,880;261,960;261,1040;261,1120;261,1200" />
-			<layer name="walk-north" frames="348,0;348,80;348,160;348,240;348,320;348,400;348,480;348,560;348,640;348,720;348,800" />
-			<layer name="walk-north-oast" frames="435,0;435,80;435,160;435,240;435,320;435,400;435,480;435,560;435,640;435,720;435,800;435,880;435,960;435,1040;435,1120;435,1200" />
-			<layer name="walk-oast" frames="522,0;522,80;522,160;522,240;522,320;522,400;522,480;522,560;522,640;522,720" />
-			<layer name="walk-south-oast" frames="609,0;609,80;609,160;609,240;609,320;609,400;609,480;609,560;609,640;609,720;609,800;609,880;609,960;609,1040;609,1120;609,1200;609,1280" />
-		</sprite>
-		
-		<!--
-		<sprite name="heli" url="media/heli.png" width="36" height="77" />
-		<sprite name="tank" url="media/tank.png" width="32" height="32" />
-		<sprite name="tank1" url="media/tank1.png" width="24" height="32" />
-		<sprite name="tank2" url="media/tank2.png" width="24" height="32" />
-		<sprite name="tank3" url="media/tank3.png" width="24" height="44" />
-		
-		<sprite name="car" url="media/car.gif">
-			<layer name="1" width="80" height="33" x="0" y="0" />
-			<layer name="2" width="78" height="33" x="87" y="0" />
-			<layer name="3" width="59" height="33" x="172" y="0" />
-			<layer name="4" width="45" height="33" x="240" y="0" />
-			<layer name="5" width="41" height="33" x="290" y="0" />
-			<layer name="6" width="38" height="33" x="335" y="0" />
-			<layer name="7" width="34" height="33" x="380" y="0" />
-			<layer name="8" width="38" height="33" x="421" y="0" />
-			<layer name="9" width="41" height="33" x="463" y="0" />
-			<layer name="10" width="45" height="33" x="509" y="0" />
-			<layer name="11" width="59" height="33" x="563" y="0" />
-			<layer name="12" width="78" height="33" x="629" y="0" />
-			<layer name="13" width="80" height="33" x="714" y="0" />
-			<layer name="14" width="78" height="35" x="0" y="33" />
-			<layer name="15" width="61" height="35" x="84" y="33" />
-			<layer name="16" width="47" height="35" x="156" y="33" />
-			<layer name="17" width="43" height="35" x="212" y="33" />
-			<layer name="18" width="38" height="35" x="263" y="33" />
-			<layer name="19" width="36" height="35" x="308" y="33" />
-			<layer name="20" width="36" height="35" x="354" y="33" />
-			<layer name="21" width="38" height="35" x="397" y="33" />
-			<layer name="22" width="43" height="35" x="443" y="33" />
-			<layer name="23" width="47" height="35" x="495" y="33" />
-			<layer name="24" width="61" height="35" x="553" y="33" />
-			<layer name="25" width="78" height="35" x="620" y="33" />
-		</sprite>
-		
-		<sprite name="bullet" width="3" height="3" style="background-color:white;border-radius:5px;" />
-		-->
-	</sprites>
-	
 	<map>
 		<tile refid="grass1" x="28" y="71" />
 		<tile refid="cube" x="10" y="17" />
@@ -324,15 +272,6 @@
 		<tile refid="terrain30" x="6" y="27" />
 		<tile refid="terrain31" x="7" y="28" />
 		<tile refid="terrain32" x="7" y="29" />
-		
-		<sprite refid="warrior" x="1" y="12"  />
-		<!--
-		<sprite refid="tank2" x="10" y="12" rotate="90" />
-		<sprite refid="tank1" x="10" y="3" rotate="200" />
-		<sprite refid="tank" x="5" y="7" rotate="20" />
-		<sprite refid="tank3" x="7" y="23" rotate="98" />
-		-->
-		
 	</map>
 	
 </map>
