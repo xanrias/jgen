@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map tile-width="66" tile-height="34" map-width="100" map-height="100">
+	
+	<tiles>
+		<tile id="road1" uri="media/road1.gif" />
+		<tile id="road2" uri="media/road2.gif" />
+		<tile id="road3" uri="media/road3.gif" />
+		<tile id="tree6" uri="media/tree_6.png" />
+		
+		<tile id="x1" uri="media/1.png?ыы" />
+		<tile id="grass" uri="media/grass.gif" />
+		<tile id="ground" uri="media/ground.gif" />
+		<tile id="tree" uri="media/tree.gif" />
+		<tile id="cube" uri="media/cube.gif" />
+		<tile id="mmm" uri="media/mmm.png" />
+		<tile id="mmm2" uri="media/mmm2.png" />
+		<tile id="tre" uri="media/tree.png" />
+		<tile id="treee" uri="media/treee.png" />
+		<tile id="xtree" uri="media/xtree.png?xs" />
+		<tile id="rr" uri="media/rr.png?xs" />
+		<tile id="huge" uri="media/huge.png?xxs" />
+		<tile id="xttt" uri="media/xttt.png?xs" />
+		<tile id="bla" uri="media/bla.png?xs" />
+		
+		<tile id="hill1" uri="media/tiles/hills/1.png" />
+		<tile id="hill2" uri="media/tiles/hills/2.png" />
+		<tile id="hill3" uri="media/tiles/hills/3.png" />
+		<tile id="hill4" uri="media/tiles/hills/4.png" />
+		<tile id="hill5" uri="media/tiles/hills/5.png" />
+		<tile id="hill6" uri="media/tiles/hills/6.png" />
+		<tile id="hill7" uri="media/tiles/hills/7.png" />
+		<tile id="hill8" uri="media/tiles/hills/8.png" />
+		<tile id="hill9" uri="media/tiles/hills/9.png" />
+		<tile id="hill10" uri="media/tiles/hills/10.png" />
+		<tile id="hill11" uri="media/tiles/hills/11.png" />
+		<tile id="hill12" uri="media/tiles/hills/12.png" />
+		<tile id="hill13" uri="media/tiles/hills/13.png" />
+		
+		<tile id="rock1" uri="media/tiles/rocks/1.png" />
+		<tile id="rock2" uri="media/tiles/rocks/2.png" />
+		<tile id="rock3" uri="media/tiles/rocks/3.png" />
+		<tile id="rock4" uri="media/tiles/rocks/4.png" />
+		<tile id="rock5" uri="media/tiles/rocks/5.png" />
+		<tile id="rock6" uri="media/tiles/rocks/6.png" />
+		<tile id="rock7" uri="media/tiles/rocks/7.png" />
+		<tile id="rock8" uri="media/tiles/rocks/8.png" />
+		<tile id="rock9" uri="media/tiles/rocks/9.png" />
+		<tile id="rock10" uri="media/tiles/rocks/10.png" />
+		<tile id="rock11" uri="media/tiles/rocks/11.png" />
+		<tile id="rock12" uri="media/tiles/rocks/12.png" />
+		<tile id="rock13" uri="media/tiles/rocks/13.png" />
+		<tile id="rock14" uri="media/tiles/rocks/14.png" />
+		<tile id="rock15" uri="media/tiles/rocks/15.png" />
+		<tile id="rock16" uri="media/tiles/rocks/16.png" />
+		<tile id="rock17" uri="media/tiles/rocks/17.png" />
+		<tile id="rock18" uri="media/tiles/rocks/18.png" />
+		<tile id="rock19" uri="media/tiles/rocks/19.png" />
+		<tile id="rock20" uri="media/tiles/rocks/20.png" />
+		<tile id="rock21" uri="media/tiles/rocks/21.png" />
+		<tile id="rock22" uri="media/tiles/rocks/22.png" />
+		<tile id="rock23" uri="media/tiles/rocks/23.png" />
+		<tile id="rock24" uri="media/tiles/rocks/24.png" />
+		<tile id="rock25" uri="media/tiles/rocks/25.png" />
+		<tile id="rock26" uri="media/tiles/rocks/26.png" />
+		<tile id="rock27" uri="media/tiles/rocks/27.png" />
+		<tile id="rock28" uri="media/tiles/rocks/28.png" />
+		<tile id="rock29" uri="media/tiles/rocks/29.png" />
+		<tile id="rock30" uri="media/tiles/rocks/30.png" />
+		
+		<tile id="water1" uri="media/tiles/water/1.png" />
+		<tile id="water2" uri="media/tiles/water/2.png" />
+		<tile id="water3" uri="media/tiles/water/3.png" />
+		<tile id="water4" uri="media/tiles/water/4.png" />
+		<tile id="water5" uri="media/tiles/water/5.png" />
+		<tile id="water6" uri="media/tiles/water/6.png" />
+		<tile id="water7" uri="media/tiles/water/7.png" />
+		<tile id="water8" uri="media/tiles/water/8.png" />
+		<tile id="water9" uri="media/tiles/water/9.png" />
+		<tile id="water10" uri="media/tiles/water/10.png" />
+		<tile id="water11" uri="media/tiles/water/11.png" />
+		<tile id="water12" uri="media/tiles/water/12.png" />
+		<tile id="water13" uri="media/tiles/water/13.png" />
+		<tile id="water14" uri="media/tiles/water/14.png" />
+		<tile id="water15" uri="media/tiles/water/15.png" />
+		<tile id="water16" uri="media/tiles/water/16.png" />
+		<tile id="water17" uri="media/tiles/water/17.png" />
+		<tile id="water18" uri="media/tiles/water/18.png" />
+		<tile id="water19" uri="media/tiles/water/19.png" />
+		<tile id="water20" uri="media/tiles/water/20.png" />
+		<tile id="water21" uri="media/tiles/water/21.png" />
+		<tile id="water22" uri="media/tiles/water/22.png" />
+		<tile id="water23" uri="media/tiles/water/23.png" />
+		
+		<tile id="axgrass1" uri="media/tiles/grass/1.png" />
+		<tile id="axgrass2" uri="media/tiles/grass/2.png" />
+		<tile id="axgrass3" uri="media/tiles/grass/3.png" />
+		<tile id="axgrass4" uri="media/tiles/grass/4.png" />
+		<tile id="axgrass5" uri="media/tiles/grass/5.png" />
+		<tile id="axgrass6" uri="media/tiles/grass/6.png" />
+		<tile id="axgrass7" uri="media/tiles/grass/7.png" />
+		<tile id="axgrass8" uri="media/tiles/grass/8.png" />
+		<tile id="axgrass9" uri="media/tiles/grass/9.png" />
+		
+		<tile id="grassWater1" uri="media/tiles/grassWater/g1.png" />
+		<tile id="grassWater2" uri="media/tiles/grassWater/g2.png" />
+		<tile id="grassWater3" uri="media/tiles/grassWater/g3.png" />
+		<tile id="grassWater4" uri="media/tiles/grassWater/g4.png" />
+		<tile id="grassWater5" uri="media/tiles/grassWater/g5.png" />
+		<tile id="grassWater6" uri="media/tiles/grassWater/g6.png" />
+		<tile id="grassWater7" uri="media/tiles/grassWater/g7.png" />
+		<tile id="grassWater8" uri="media/tiles/grassWater/g8.png" />
+		<tile id="grassWater9" uri="media/tiles/grassWater/g9.png" />
+		<tile id="grassWater10" uri="media/tiles/grassWater/g10.png" />
+		<tile id="grassWater11" uri="media/tiles/grassWater/g11.png" />
+		<tile id="grassWater12" uri="media/tiles/grassWater/g12.png" />
+		<tile id="grassWater13" uri="media/tiles/grassWater/g13.png" />
+		<tile id="grassWater14" uri="media/tiles/grassWater/g14.png" />
+		<tile id="grassWater15" uri="media/tiles/grassWater/g15.png" />
+		<tile id="grassWater16" uri="media/tiles/grassWater/g16.png" />
+		<tile id="grassWater17" uri="media/tiles/grassWater/g17.png" />
+		<tile id="grassWater18" uri="media/tiles/grassWater/g18.png" />
+		<tile id="grassWater19" uri="media/tiles/grassWater/g19.png" />
+		<tile id="grassWater20" uri="media/tiles/grassWater/g20.png" />
+		<tile id="grassWater21" uri="media/tiles/grassWater/g21.png" />
+		<tile id="grassWater22" uri="media/tiles/grassWater/g22.png" />
+		<tile id="grassWater23" uri="media/tiles/grassWater/g23.png" />
+		<tile id="grassWater24" uri="media/tiles/grassWater/g24.png" />
+		
+		<tile id="grass1" uri="media/tiles/ground/1.png" />
+		<tile id="grass2" uri="media/tiles/ground/2.png" />
+		<tile id="grass3" uri="media/tiles/ground/3.png" />
+		<tile id="grass4" uri="media/tiles/ground/4.png" />
+		<tile id="grass5" uri="media/tiles/ground/5.png" />
+		<tile id="grass6" uri="media/tiles/ground/6.png" />
+		<tile id="grass7" uri="media/tiles/ground/7.png" />
+		<tile id="grass8" uri="media/tiles/ground/8.png" />
+		<tile id="grass9" uri="media/tiles/ground/9.png" />
+		<tile id="grass10" uri="media/tiles/ground/10.png" />
+		<tile id="grass11" uri="media/tiles/ground/11.png" />
+		<tile id="grass12" uri="media/tiles/ground/12.png" />
+		<tile id="grass13" uri="media/tiles/ground/13.png" />
+		<tile id="grass14" uri="media/tiles/ground/14.png" />
+		<tile id="grass15" uri="media/tiles/ground/15.png" />
+		<tile id="grass16" uri="media/tiles/ground/16.png" />
+		<tile id="grass17" uri="media/tiles/ground/17.png" />
+		<tile id="grass18" uri="media/tiles/ground/18.png" />
+		<tile id="grass19" uri="media/tiles/ground/19.png" />
+		
+		<tile id="surface1" uri="media/tiles/surface/1.gif" />
+		<tile id="surface2" uri="media/tiles/surface/2.gif" />
+		<tile id="surface3" uri="media/tiles/surface/3.gif" />
+		<tile id="surface4" uri="media/tiles/surface/4.gif" />
+		<tile id="surface5" uri="media/tiles/surface/5.gif" />
+		<tile id="surface6" uri="media/tiles/surface/6.gif" />
+		<tile id="surface7" uri="media/tiles/surface/7.gif" />
+		<tile id="surface8" uri="media/tiles/surface/8.gif" />
+		<tile id="surface9" uri="media/tiles/surface/9.gif" />
+		<tile id="surface10" uri="media/tiles/surface/10.gif" />
+		<tile id="surface11" uri="media/tiles/surface/11.gif" />
+		<tile id="surface12" uri="media/tiles/surface/12.gif" />
+		<tile id="surface13" uri="media/tiles/surface/13.gif" />
+		<tile id="surface14" uri="media/tiles/surface/14.gif" />
+		<tile id="surface15" uri="media/tiles/surface/15.gif" />
+		<tile id="surface16" uri="media/tiles/surface/16.gif" />
+		<tile id="surface17" uri="media/tiles/surface/17.gif" />
+		
+		<tile id="terrain1" uri="media/tiles/terrain/1.png" />
+		<tile id="terrain2" uri="media/tiles/terrain/2.png" />
+		<tile id="terrain3" uri="media/tiles/terrain/3.png" />
+		<tile id="terrain4" uri="media/tiles/terrain/4.png" />
+		<tile id="terrain5" uri="media/tiles/terrain/5.png" />
+		<tile id="terrain6" uri="media/tiles/terrain/6.png" />
+		<tile id="terrain7" uri="media/tiles/terrain/7.png" />
+		<tile id="terrain8" uri="media/tiles/terrain/8.png" />
+		<tile id="terrain9" uri="media/tiles/terrain/9.png" />
+		<tile id="terrain10" uri="media/tiles/terrain/10.png" />
+		<tile id="terrain11" uri="media/tiles/terrain/11.png" />
+		<tile id="terrain12" uri="media/tiles/terrain/12.png" />
+		<tile id="terrain13" uri="media/tiles/terrain/13.png" />
+		<tile id="terrain14" uri="media/tiles/terrain/14.png" />
+		<tile id="terrain15" uri="media/tiles/terrain/15.png" />
+		<tile id="terrain16" uri="media/tiles/terrain/16.png" />
+		<tile id="terrain17" uri="media/tiles/terrain/17.png" />
+		<tile id="terrain18" uri="media/tiles/terrain/18.png" />
+		<tile id="terrain19" uri="media/tiles/terrain/19.png" />
+		<tile id="terrain20" uri="media/tiles/terrain/20.png" />
+		<tile id="terrain21" uri="media/tiles/terrain/21.png" />
+		<tile id="terrain22" uri="media/tiles/terrain/22.png" />
+		<tile id="terrain23" uri="media/tiles/terrain/23.png" />
+		<tile id="terrain24" uri="media/tiles/terrain/24.png" />
+		<tile id="terrain25" uri="media/tiles/terrain/25.png" />
+		<tile id="terrain26" uri="media/tiles/terrain/26.png" />
+		<tile id="terrain27" uri="media/tiles/terrain/27.png" />
+		<tile id="terrain28" uri="media/tiles/terrain/28.png" />
+		<tile id="terrain29" uri="media/tiles/terrain/29.png" />
+		<tile id="terrain30" uri="media/tiles/terrain/30.png" />
+		<tile id="terrain31" uri="media/tiles/terrain/31.png" />
+		<tile id="terrain32" uri="media/tiles/terrain/32.png" />
+		
+	</tiles>
+	
+	<sprites>
+		
+		<sprite id="warrior" width="87" height="80" uri="media/mechwarrior.png">
+			<layer name="walk-south" frames="0,0;0,80;0,160;0,240;0,320;0,400;0,480;0,560;0,640;0,720;0,800" />
+			<layer name="walk-south-west" frames="87,0;87,80;87,160;87,240;87,320;87,400;87,480;87,560;87,640;87,720;87,800;87,880;87,960;87,1040;87,1120;87,1200;87,1280" />
+			<layer name="walk-west" frames="174,0;174,80;174,160;174,240;174,320;174,400;174,480;174,560;174,640;174,720" />
+			<layer name="walk-north-west" frames="261,0;261,80;261,160;261,240;261,320;261,400;261,480;261,560;261,640;261,720;261,800;261,880;261,960;261,1040;261,1120;261,1200" />
+			<layer name="walk-north" frames="348,0;348,80;348,160;348,240;348,320;348,400;348,480;348,560;348,640;348,720;348,800" />
+			<layer name="walk-north-oast" frames="435,0;435,80;435,160;435,240;435,320;435,400;435,480;435,560;435,640;435,720;435,800;435,880;435,960;435,1040;435,1120;435,1200" />
+			<layer name="walk-oast" frames="522,0;522,80;522,160;522,240;522,320;522,400;522,480;522,560;522,640;522,720" />
+			<layer name="walk-south-oast" frames="609,0;609,80;609,160;609,240;609,320;609,400;609,480;609,560;609,640;609,720;609,800;609,880;609,960;609,1040;609,1120;609,1200;609,1280" />
+		</sprite>
+		
+		<!--
+		<sprite name="heli" url="media/heli.png" width="36" height="77" />
+		<sprite name="tank" url="media/tank.png" width="32" height="32" />
+		<sprite name="tank1" url="media/tank1.png" width="24" height="32" />
+		<sprite name="tank2" url="media/tank2.png" width="24" height="32" />
+		<sprite name="tank3" url="media/tank3.png" width="24" height="44" />
+		
+		<sprite name="car" url="media/car.gif">
+			<layer name="1" width="80" height="33" x="0" y="0" />
+			<layer name="2" width="78" height="33" x="87" y="0" />
+			<layer name="3" width="59" height="33" x="172" y="0" />
+			<layer name="4" width="45" height="33" x="240" y="0" />
+			<layer name="5" width="41" height="33" x="290" y="0" />
+			<layer name="6" width="38" height="33" x="335" y="0" />
+			<layer name="7" width="34" height="33" x="380" y="0" />
+			<layer name="8" width="38" height="33" x="421" y="0" />
+			<layer name="9" width="41" height="33" x="463" y="0" />
+			<layer name="10" width="45" height="33" x="509" y="0" />
+			<layer name="11" width="59" height="33" x="563" y="0" />
+			<layer name="12" width="78" height="33" x="629" y="0" />
+			<layer name="13" width="80" height="33" x="714" y="0" />
+			<layer name="14" width="78" height="35" x="0" y="33" />
+			<layer name="15" width="61" height="35" x="84" y="33" />
+			<layer name="16" width="47" height="35" x="156" y="33" />
+			<layer name="17" width="43" height="35" x="212" y="33" />
+			<layer name="18" width="38" height="35" x="263" y="33" />
+			<layer name="19" width="36" height="35" x="308" y="33" />
+			<layer name="20" width="36" height="35" x="354" y="33" />
+			<layer name="21" width="38" height="35" x="397" y="33" />
+			<layer name="22" width="43" height="35" x="443" y="33" />
+			<layer name="23" width="47" height="35" x="495" y="33" />
+			<layer name="24" width="61" height="35" x="553" y="33" />
+			<layer name="25" width="78" height="35" x="620" y="33" />
+		</sprite>
+		
+		<sprite name="bullet" width="3" height="3" style="background-color:white;border-radius:5px;" />
+		-->
+	</sprites>
+	
+	<map>
+		<tile refid="grass1" x="28" y="71" />
+		<tile refid="cube" x="10" y="17" />
+		
+		<tile refid="grass1" x="1" y="12" />
+		<tile refid="grass2" x="1" y="13" />
+		<tile refid="grass3" x="2" y="14" />
+		<tile refid="grass4" x="2" y="15" />
+		<tile refid="grass5" x="3" y="16" />
+		<tile refid="grass6" x="3" y="17" />
+		<tile refid="grass7" x="4" y="18" />
+		<tile refid="grass8" x="4" y="19" />
+		<tile refid="grass9" x="5" y="20" />
+		<tile refid="grass10" x="5" y="21" />
+		<tile refid="grass11" x="6" y="22" />
+		<tile refid="grass12" x="6" y="23" />
+		<tile refid="grass13" x="7" y="24" />
+		<tile refid="grass14" x="7" y="25" />
+		<tile refid="grass15" x="8" y="26" />
+		<tile refid="grass16" x="8" y="27" />
+		<tile refid="grass17" x="9" y="28" />
+		<tile refid="grass18" x="9" y="29" />
+		<tile refid="grass19" x="10" y="30" />
+		
+		<tile refid="surface1" x="1" y="11" />
+		<tile refid="surface2" x="2" y="12" />
+		<tile refid="surface3" x="2" y="13" />
+		<tile refid="surface4" x="3" y="14" />
+		<tile refid="surface5" x="3" y="15" />
+		<tile refid="surface6" x="4" y="16" />
+		<tile refid="surface7" x="4" y="17" />
+		<tile refid="surface8" x="5" y="18" />
+		<tile refid="surface9" x="5" y="19" />
+		<tile refid="surface10" x="6" y="20" />
+		<tile refid="surface11" x="6" y="21" />
+		<tile refid="surface12" x="7" y="22" />
+		<tile refid="surface13" x="7" y="23" />
+		<tile refid="surface14" x="8" y="24" />
+		<tile refid="surface15" x="8" y="25" />
+		<tile refid="surface16" x="9" y="26" />
+		
+		<tile refid="terrain1" x="1" y="14" />
+		<tile refid="terrain2" x="1" y="15" />
+		<tile refid="terrain3" x="2" y="16" />
+		<tile refid="terrain4" x="2" y="17" />
+		<tile refid="terrain5" x="3" y="18" />
+		<tile refid="terrain6" x="3" y="19" />
+		<tile refid="terrain7" x="4" y="20" />
+		<tile refid="terrain8" x="4" y="21" />
+		<tile refid="terrain9" x="5" y="22" />
+		<tile refid="terrain10" x="5" y="23" />
+		<tile refid="terrain11" x="6" y="24" />
+		<tile refid="terrain12" x="6" y="25" />
+		<tile refid="terrain13" x="7" y="26" />
+		<tile refid="terrain14" x="7" y="27" />
+		<tile refid="terrain15" x="8" y="28" />
+		<tile refid="terrain16" x="8" y="29" />
+		<tile refid="terrain17" x="9" y="30" />
+		<tile refid="terrain18" x="9" y="31" />
+		<tile refid="terrain19" x="1" y="16" />
+		<tile refid="terrain20" x="1" y="17" />
+		<tile refid="terrain21" x="2" y="18" />
+		<tile refid="terrain22" x="2" y="19" />
+		<tile refid="terrain23" x="3" y="20" />
+		<tile refid="terrain24" x="3" y="21" />
+		<tile refid="terrain25" x="4" y="22" />
+		<tile refid="terrain26" x="4" y="23" />
+		<tile refid="terrain27" x="5" y="24" />
+		<tile refid="terrain28" x="5" y="25" />
+		<tile refid="terrain29" x="6" y="26" />
+		<tile refid="terrain30" x="6" y="27" />
+		<tile refid="terrain31" x="7" y="28" />
+		<tile refid="terrain32" x="7" y="29" />
+		
+		<sprite refid="warrior" x="1" y="12"  />
+		<!--
+		<sprite refid="tank2" x="10" y="12" rotate="90" />
+		<sprite refid="tank1" x="10" y="3" rotate="200" />
+		<sprite refid="tank" x="5" y="7" rotate="20" />
+		<sprite refid="tank3" x="7" y="23" rotate="98" />
+		-->
+		
+	</map>
+	
+</map>

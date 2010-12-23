@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
-		<title>jGen map editor</title>
+		<title>jGen demo</title>
 		<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
 		<script type="text/javascript" src="scripts/oop.js"></script>
 		<script type="text/javascript" src="scripts/XMLHttpRequest.js"></script>
@@ -9,7 +9,218 @@
 		<script type="text/javascript" src="scripts/html.js"></script>
 		<script type="text/javascript" src="scripts/math.js"></script>
 		<script type="text/javascript" src="scripts/map.js"></script>
+		<script type="text/javascript">
+			var TEngine = Class.create({
+				callback: null,
+				eventHandler: null,
+				gameState: {
+					height: 0,
+					keys: {},
+					mouse: {},
+					metaKey: false
+				},
+				constructor: function(oViewPort, fCallback) {
+					var oThis = this;
+					this.viewPort = oViewPort;
+					this.callback = fCallback;
+					this.eventHandler = function(oEvent) {
+						// update metakey state
+						oThis.gameState.metaKey = oEvent.metaKey;
+						
+						if (oEvent.type == 'change') {
+							if (oEvent.target.name == 'heightSlider') oThis.gameState.height = parseInt(oEvent.target.value, 10);
+						}
+						
+						else if (oEvent.type == 'keydown') oThis.gameState.keys[oEvent.keyCode] = true;
+						else if (oEvent.type == 'keyup') oThis.gameState.keys[oEvent.keyCode] = false;
+						else if (oEvent.type == 'mousedown') oThis.gameState.mouse.down = true;
+						else if (oEvent.type == 'mouseup') oThis.gameState.mouse.down = false;
+						else if (oEvent.type == 'mousemove') {
+							oThis.gameState.mouse.x = (oEvent.clientX - oThis.viewPort.offsetLeft);
+							oThis.gameState.mouse.y = (oEvent.clientY - oThis.viewPort.offsetTop);
+						}
+					};
+				},
+				start: function(oViewPort) {
+					var oThis = this;
+					document.addEventListener('change', this.eventHandler, false);
+					document.addEventListener('keydown', this.eventHandler, false);
+					document.addEventListener('keyup', this.eventHandler, false);
+					this.viewPort.addEventListener('mousemove', this.eventHandler, false);
+					this.viewPort.addEventListener('mousedown', this.eventHandler, false);
+					this.viewPort.addEventListener('mouseup', this.eventHandler, false);
+					window.top.testInterval = function() {
+						oThis.callback.call(oThis, oThis.gameState);
+					}
+					for (var c = 0; c < 1; c++) {
+						setInterval(window.top.testInterval, 0);
+					}
+				}
+			});
+			
+			function start() {
+				
+				var oViewPort = document.querySelector('.viewPort');
+				var oMap = new TMap(oViewPort, oViewPort.offsetWidth, oViewPort.offsetHeight);
+				oMap.loadMap('map.xml', function() {
+					
+					var oLibraryViewPort = document.querySelector('.leftPanel');
+					for (var sTileId in oMap.tiles) {
+						var oTile = oMap.tiles[sTileId];
+						var oLibraryItem = oLibraryViewPort.ownerDocument.createElement('div');
+						oLibraryItem.tileId = sTileId;
+						oLibraryItem.className = 'libraryItem';
+						var oLibraryItemImg = oLibraryViewPort.ownerDocument.createElement('img');
+						oLibraryItemImg.setAttribute('src', oTile.tileUrl);
+						oLibraryItem.appendChild(oLibraryItemImg);
+						oLibraryViewPort.appendChild(oLibraryItem);
+					}
+					
+					var sBrushObject = '';
+					
+					oLibraryViewPort.addEventListener('mousedown', function(oEvent) {
+						if (oEvent.srcElement.tagName.toLowerCase() == 'img') {
+							var oSelectedElement = oLibraryViewPort.querySelector('.selected');
+							if (oSelectedElement) oSelectedElement.removeClass('selected');
+							oEvent.srcElement.parentNode.addClass('selected');
+							sBrushObject = oEvent.srcElement.parentNode.tileId;
+						}
+					}, false);
+					
+					oMap.render(0, 0);
+					
+					var iHeight = 0;
+					var iScrollX = iNewScrollX = 0;
+					var iScrollY = iNewScrollY = 0;
+					var iCaptureX = iCaptureY = -1;
+					
+					window.addEventListener('resize', function() {
+						oMap.resizeViewPort(oViewPort.offsetWidth, oViewPort.offsetHeight);
+						oMap.render(iScrollX, iScrollY);
+					}, false);
+					
+					var iSecond = (new Date()).getSeconds();
+					var iCounter = 0;
+					var oFPSWindow = document.querySelector('.fpsWindow');
+					
+					(new TEngine(oViewPort, function(oGameState) {
+						
+						iCounter++;
+						
+						/*
+						if (oGameState.keys[39]) oMap.sprites[0].rotateTo(1);
+						if (oGameState.keys[37]) oMap.sprites[0].rotateTo(-1);
+						if (oGameState.keys[38]) oMap.sprites[0].moveForward(1);
+						if (oGameState.keys[40]) oMap.sprites[0].moveForward(-1);
+						*/
+						
+						if (oGameState.mouse.down) {
+							if ((oGameState.metaKey) && (iCaptureX == -1) && (iCaptureY == -1)) {
+								iCaptureX = oGameState.mouse.x + iScrollX;
+								iCaptureY = oGameState.mouse.y + iScrollY;
+							} else if (oGameState.metaKey) {
+								iNewScrollX = (iCaptureX - oGameState.mouse.x);
+								iNewScrollY = (iCaptureY - oGameState.mouse.y);
+								if ((iNewScrollX != iScrollX) || (iNewScrollY != iScrollY)) {
+									oMap.render(iNewScrollX, iNewScrollY);
+									iScrollX = iNewScrollX;
+									iScrollY = iNewScrollY;
+								}
+							} else if (sBrushObject) {
+								window.top.status = iNewScrollX;
+								var a = oMap.screen2map(
+									oGameState.mouse.x,
+									oGameState.mouse.y,
+									iScrollX,
+									iScrollY
+								);
+								
+								var sIndex = a[1] + '.' + a[0];
+								//var sIndex2 = (parseInt(a[1], 10) - 1) + '.' + (parseInt(a[0], 10) - 1);
+								
+								//alert([sIndex, sIndex2]);
+								
+								oMap.objects[sIndex] = sBrushObject;
+								//oMap.objects[sIndex2] = sBrushObject;
+								
+								if (oMap.mapData[sIndex]) {
+									oMap.mapData[sIndex].parentNode.removeChild(oMap.mapData[sIndex]);
+									delete(oMap.mapData[sIndex]);
+								}
+								/*
+								if (oMap.mapData[sIndex2]) {
+									oMap.mapData[sIndex2].parentNode.removeChild(oMap.mapData[sIndex2]);
+									delete(oMap.mapData[sIndex2]);
+								}
+								*/
+								oMap.render(iScrollX, iScrollY);
+							}
+						} else {  
+							iCaptureX = -1;
+							iCaptureY = -1;
+						}
+						
+						/*
+						if (iHeight != oGameState.height) {
+							iHeight = oGameState.height;
+							for (var sIndex in oMap.mapData) {
+								var oTile = oMap.mapData[sIndex];
+								if (oTile.offsetHeight == 32) {
+									oTile.style.opacity = iHeight / 100;
+								}
+							}
+							 
+						}
+						*/
+						
+						var iNewSecond = (new Date()).getSeconds();
+						if (iNewSecond != iSecond) {
+							iSecond = iNewSecond;
+							oFPSWindow.innerHTML = 'FPS: ' + iCounter;
+							iCounter = 0;
+						}
+						
+							
+						/*
+						
+						if (oGameState.keys[32]) {
+							if (window.bullet) return;
+							window.bullet = true;
+							
+							var oBullet = new TBullet(oMap, 'sprite-bullet');
+							
+							var aPoint = Math.circle_point(
+								(oMap.sprites[0].posX + oMap.sprites[0].sprite.offsetWidth / 2),
+								(oMap.sprites[0].posY + oMap.sprites[0].sprite.offsetHeight / 2),
+								Math.deg2rad(oMap.sprites[0].rotationDeg + 90),
+								30
+							);
+							
+							oBullet.move(aPoint[0], aPoint[1]);
+							oBullet.rotate(oMap.sprites[0].rotationDeg);
+							oBullet.show();
+							oMap.addSprite(oBullet);
+							
+							window.bullet = setTimeout(function() {
+								clearTimeout(window.bullet);
+								window.bullet = 0;
+							}, 500);
+						}
+						*/
+						
+					})).start();
+				});
+			}
+		</script>
 	</head>
-	<body>
+	<body onload="start();">
+		<div class="leftPanel">
+		</div>
+		<div class="viewPort">
+			<div class="fpsWindow"></div>
+		</div>
+		<div class="rightPanel">
+			<input name="heightSlider" type="range" min="0" max="100" step="1" value="0" />
+		</div>
 	</body>
 </html>
