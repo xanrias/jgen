@@ -13,7 +13,16 @@ var TEditor = Class.create({
 				var oSelectedElement = oLibraryItem.parentNode.querySelector('.paletteItem.selected');
 				if (oSelectedElement) oSelectedElement.removeClass('selected');
 				oLibraryItem.addClass('selected');
-				oThis.selectedObject = oThis.objects[oLibraryItem.name];
+				oThis.selectedObject = oThis.objects[oLibraryItem.category][oLibraryItem.name];
+				return;
+			}
+			var oLibraryCategory = oSender.queryAncestor('.paletteCategoryName');
+			if (oLibraryCategory) {
+				var oCategory = oSender.queryAncestor('.paletteCategory');
+				if (oCategory.queryMatches('.selected')) return;
+				var oSelectedCategory = oCategory.parentNode.querySelector('.paletteCategory.selected');
+				oSelectedCategory.removeClass('selected');
+				oCategory.addClass('selected');
 			}
 		});
 	},
@@ -36,7 +45,7 @@ var TEditor = Class.create({
 		var oThis = this;
 		var iObjectsToLoad = 0;
 		for (var oLibraryObjects = oLibraryDocument.evaluate(
-			'object',
+			'category/object',
 			oLibraryDocument.documentElement,
 			null,
 			XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
@@ -45,12 +54,14 @@ var TEditor = Class.create({
 			var oLibraryObject = oLibraryObjects.snapshotItem(i);
 			new function() {
 				iObjectsToLoad++;
+				var sCategoryName = oLibraryObject.parentNode.getAttribute('name');
 				var sObjectId = oLibraryObject.getAttribute('id');
 				var sObjectUri = oLibraryObject.getAttribute('uri');
 				var oObjectPreloader = document.createElement('img');
 				oObjectPreloader.name = sObjectId;
 				oObjectPreloader.onload = oObjectPreloader.onerror = function(oEvent) {
-					oThis.objects[sObjectId] = oObjectPreloader;
+					if (!oThis.objects[sCategoryName]) oThis.objects[sCategoryName] = {};
+					oThis.objects[sCategoryName][sObjectId] = oObjectPreloader;
 					if (!--iObjectsToLoad) fCallBack.call(oThis);
 				};
 				oObjectPreloader.src = (sBaseURI + sObjectUri);
@@ -59,18 +70,40 @@ var TEditor = Class.create({
 	},
 	
 	renderPalette: function(oElement) {
-		for (var sObjectId in this.objects) {
-			var oObjectRef = this.objects[sObjectId];
-			var oPaletteItem = oElement.ownerDocument.createElement('div');
-			oPaletteItem.className = 'paletteItem';
-			oPaletteItem.name = sObjectId;
-			oPaletteItem.appendChild(
-				oElement.ownerDocument.createElement('div').setStyle({
-					'background-image': 'url("' + oObjectRef.src + '")'
-				})
-			);
-			oElement.appendChild(oPaletteItem);
+		for (var sCategoryName in this.objects) {
+			if (!oCategoryElement) {
+				var oCategoryElement = oElement.ownerDocument.createElement('div');
+				oCategoryElement.className = 'selected';
+			} else oCategoryElement = oElement.ownerDocument.createElement('div');
+			
+			oCategoryElement.addClass('paletteCategory');
+			
+			var oCategoryNameElement = oElement.ownerDocument.createElement('div');
+			oCategoryNameElement.className = 'paletteCategoryName';
+			oCategoryNameElement.innerHTML = sCategoryName;
+			oCategoryElement.appendChild(oCategoryNameElement);
+		
+			var oCategoryItemsElement = oElement.ownerDocument.createElement('div');
+			oCategoryItemsElement.className = 'paletteCategoryItems';
+			oCategoryElement.appendChild(oCategoryItemsElement);
+			
+			for (var sObjectId in this.objects[sCategoryName]) {
+				var oObjectRef = this.objects[sCategoryName][sObjectId];
+				var oPaletteItem = oElement.ownerDocument.createElement('div');
+				oPaletteItem.className = 'paletteItem';
+				oPaletteItem.name = sObjectId;
+				oPaletteItem.category = sCategoryName;
+				oPaletteItem.appendChild(
+					oElement.ownerDocument.createElement('div').setStyle({
+						'background-image': 'url("' + oObjectRef.src + '")'
+					})
+				);
+				oCategoryItemsElement.appendChild(oPaletteItem);
+			}
+			
+			oElement.appendChild(oCategoryElement);
 		}
+		
 	},
 	
 	renderWorkspace: function(oElement) {
