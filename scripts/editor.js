@@ -70,6 +70,8 @@ var TEditor = Class.create({
 	},
 	
 	renderPalette: function(oElement) {
+		var oPalette = oElement.ownerDocument.createElement('div');
+		oPalette.className = 'palette';
 		for (var sCategoryName in this.objects) {
 			if (!oCategoryElement) {
 				var oCategoryElement = oElement.ownerDocument.createElement('div');
@@ -80,7 +82,7 @@ var TEditor = Class.create({
 			
 			var oCategoryNameElement = oElement.ownerDocument.createElement('div');
 			oCategoryNameElement.className = 'paletteCategoryName';
-			oCategoryNameElement.innerHTML = sCategoryName;
+			oCategoryNameElement.innerHTML = (sCategoryName + ' (' + Object.keys(this.objects[sCategoryName]).length + ')');
 			oCategoryElement.appendChild(oCategoryNameElement);
 		
 			var oCategoryItemsElement = oElement.ownerDocument.createElement('div');
@@ -101,15 +103,49 @@ var TEditor = Class.create({
 				oCategoryItemsElement.appendChild(oPaletteItem);
 			}
 			
-			oElement.appendChild(oCategoryElement);
+			oPalette.appendChild(oCategoryElement);
 		}
-		
+		oElement.appendChild(oPalette);
+	},
+	
+	drawGrid: function(iTileWidth, iTileHeight, sColor, oElement) {
+		var oCanvas = document.createElement('canvas');
+		var oContext = oCanvas.getContext("2d");
+		oCanvas.setAttribute('width', iTileWidth);
+		oCanvas.setAttribute('height', iTileHeight);
+		oContext.strokeStyle = sColor;
+		oContext.moveTo(iTileWidth / 2, 0);
+		oContext.lineTo(0, iTileHeight / 2);
+		oContext.lineTo(iTileWidth / 2, iTileHeight);
+		oContext.lineTo(iTileWidth, iTileHeight / 2);
+		oContext.lineTo(iTileWidth / 2, 0);
+		oContext.stroke();
+		oElement.setStyle({'background-image': 'url("'+oCanvas.toDataURL()+'")'});
 	},
 	
 	renderWorkspace: function(oElement) {
+		var iTileWidth = 64;
+		var iTileHeight = 32;
 		this.map = new TMap(oElement, oElement.offsetWidth, oElement.offsetHeight);
-		this.map.loadMap('map.xml', function() {
-			this.render(0, 0);
+		this.map.initMap(iTileWidth, iTileHeight, 100, 100);
+		this.drawGrid(iTileWidth, iTileHeight, '#CDCDCD', oElement);
+		
+		//this.map.loadMap('map.xml', function() {
+		//	this.render(0, 0);
+		//});
+	},
+	
+	renderMap: function(iScrollX, iScrollY) {
+		this.map.render(iScrollX, iScrollY);
+		
+		var iGridX = iScrollX % this.map.tileWidth;
+		iGridX = (iGridX >= 0 ? -iGridX : this.map.tileWidth - iGridX);
+		
+		var iGridY = iScrollY % this.map.tileHeight;
+		iGridY = (iGridY >= 0 ? -iGridY : this.map.tileHeight - iGridY);
+		
+		this.map.viewPort.parentNode.setStyle({
+			'background-position': iGridX + 'px ' + iGridY + 'px'
 		});
 	},
 	
