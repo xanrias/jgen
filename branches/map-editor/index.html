@@ -65,7 +65,8 @@
 			function start() {
 				var oEditor = new TEditor();
 				oEditor.loadLibrary('library/library.xml', function() {
-					this.renderPalette(document.querySelector('.palette'));
+					
+					this.renderPalette(document.querySelector('.leftColumn'));
 					this.renderWorkspace(document.querySelector('.viewPort'));
 					
 					var iHeight = 0;
@@ -74,8 +75,8 @@
 					var iCaptureX = iCaptureY = -1;
 					
 					window.addEventListener('resize', function() {
-						oEditor.map.resizeViewPort(oEditor.map.viewPort.offsetWidth, oEditor.map.viewPort.offsetHeight);
-						oEditor.map.render(iScrollX, iScrollY);
+						oEditor.map.initViewPort(oEditor.map.viewPort.offsetWidth, oEditor.map.viewPort.offsetHeight);
+						oEditor.renderMap(iScrollX, iScrollY);
 					}, false);
 						
 					var iSecond = (new Date()).getSeconds();
@@ -83,9 +84,29 @@
 					var oFPSWindow = document.querySelector('.fpsWindow');
 						
 					(new TEngine(oEditor.map.viewPort.parentNode, function(oGameState) {
-					
+						
 						iCounter++;
-					
+						
+						var aCursorPos = oEditor.map.screen2map(
+							oGameState.mouse.x,
+							oGameState.mouse.y,
+							iScrollX,
+							iScrollY
+						);
+						
+						
+						/*
+						var aTilePos = oEditor.map.map2screen(
+							aCursorPos[0],
+							aCursorPos[1]
+						);
+						
+						oEditor.cursor.setStyle({
+							'left': (aTilePos[0] + 'px'),
+							'top': (aTilePos[1] + 'px')
+						});
+						*/
+						
 						if (oGameState.mouse.down) {
 							if ((oGameState.metaKey) && (iCaptureX == -1) && (iCaptureY == -1)) {
 								iCaptureX = oGameState.mouse.x + iScrollX;
@@ -94,26 +115,31 @@
 								iNewScrollX = (iCaptureX - oGameState.mouse.x);
 								iNewScrollY = (iCaptureY - oGameState.mouse.y);
 								if ((iNewScrollX != iScrollX) || (iNewScrollY != iScrollY)) {
-									oEditor.map.render(iNewScrollX, iNewScrollY);
+									oEditor.renderMap(iNewScrollX, iNewScrollY);
 									iScrollX = iNewScrollX;
 									iScrollY = iNewScrollY;
 								}
 							} else if (oEditor.selectedObject) {
-								var a = oEditor.map.screen2map(
-									oGameState.mouse.x,
-									oGameState.mouse.y,
-									iScrollX,
-									iScrollY
-								);
 								
-								var sIndex = a[1] + '.' + a[0];
+								var sIndex = aCursorPos[1] + '.' + aCursorPos[0];
+								var sBrush = oEditor.selectedObject.name;
+								if (!oEditor.map.tiles[sBrush]) {
+									oEditor.map.tiles[sBrush] = oEditor.map.createTile(
+										oEditor.selectedObject.src,
+										oEditor.selectedObject.width,
+										oEditor.selectedObject.height
+									);
+								}
+								
 								oEditor.map.objects[sIndex] = (oEditor.selectedObject.name);
 								if (oEditor.map.mapData[sIndex]) {
 									oEditor.map.mapData[sIndex].parentNode.removeChild(oEditor.map.mapData[sIndex]);
 									delete(oEditor.map.mapData[sIndex]);
 								}
 								
-								oEditor.map.render(iScrollX, iScrollY);
+								oEditor.renderMap(iScrollX, iScrollY);
+								
+								console.info(oEditor.map.tiles);
 							}
 						} else {  
 							iCaptureX = -1;
@@ -145,9 +171,7 @@
 		</script>
 	</head>
 	<body onload="start();">
-		<div class="palette">
-			
-		</div>
+		<div class="leftColumn"></div>
 		<div class="viewPort">
 			<div class="fpsWindow"></div>
 		</div>

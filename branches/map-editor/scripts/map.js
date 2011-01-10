@@ -1,94 +1,3 @@
-var TSprite = Class.create({
-	map: null,
-	sprite: null,
-	posX: 0,
-	posY: 0,
-	rotationDeg: 0,
-	rotationRad: 0,
-	constructor: function(oMapRef, sClassName) {
-		this.map = oMapRef;
-		this.sprite = document.createElement('div');
-		this.sprite.setStyle({'display': 'none'});
-		this.sprite.className = sClassName;
-	},
-	
-	onCollide: function() {},
-	onOffScreen: function() {},
-	
-	rotate: function(iAngleDeg) {
-		if (iAngleDeg == this.rotationDeg) return;
-		if (iAngleDeg < 0) iAngleDeg = 360;
-		if (iAngleDeg > 360) iAngleDeg = 0;
-		this.rotationDeg = iAngleDeg;
-		this.rotationRad = Math.deg2rad(iAngleDeg);
-		this.sprite.setStyle({
-			'webkit-transform': 'rotate(' + this.rotationDeg + 'deg)'
-		});
-	},
-	
-	rotateTo: function(iAngleDeg) {
-		this.rotate(this.rotationDeg + iAngleDeg);
-	},
-	
-	move: function(x, y) {
-		
-		if ((this.posX == x) && (this.posY == y)) return;
-		
-		if (this.map.isColliding(this, x, y)) {
-			if (this.map.isColliding(this, this.posX, y)) {
-				if (!this.map.isColliding(this, x, this.posY)) this.posX = x;
-			} else this.posY = y;
-		} else {
-			this.posX = x;
-			this.posY = y;
-		}
-		
-		if (this.posX < 0) this.onOffScreen();
-		if (this.posY < 0) this.onOffScreen();
-		if (this.posX > this.map.viewPort.offsetWidth) this.onOffScreen();
-		if (this.posY > this.map.viewPort.offsetHeight) this.onOffScreen();
-		
-		this.sprite.setStyle({
-			'left': this.posX + 'px',
-			'top': this.posY + 'px'
-		});
-	},
-	moveTo: function(x, y) {
-		this.move(
-			this.posX + x,
-			this.posY + y
-		);
-	},
-	moveForward: function(px) {
-		this.moveTo(
-			-Math.sin(this.rotationRad) * px,
-			Math.cos(this.rotationRad) * px
-		);
-	},
-	show: function() {
-		this.sprite.setStyle({'display': 'block'});
-	}
-});
-
-var TBullet = Class.create(TSprite, {
-	show: function() {
-		this.base();
-		var oThis = this;
-		this.moving = setInterval(function() {
-			oThis.moveForward(4);
-		}, 0);
-	},
-	onOffScreen: function() {
-		clearInterval(this.moving);
-		this.map.removeSprite(this);
-	},
-	onCollide: function(oSprite) {
-		clearInterval(this.moving);
-		this.map.removeSprite(oSprite);
-		this.map.removeSprite(this);
-	}
-});
-
 var TMap = Class.create({
 	
 	viewPort: null,
@@ -119,12 +28,21 @@ var TMap = Class.create({
 		});
 		this.viewPort = oViewPort.appendChild(oViewPortElement);
 		this.spritesViewPort = oViewPort.appendChild(oViewPortElement.cloneNode(true));
-		this.viewPortWidthPx = iViewPortWidth;
-		this.viewPortHeightPx = iViewPortHeight;
 		this.viewPortBuffer = document.createDocumentFragment();
+		this.initViewPort(iViewPortWidth, iViewPortHeight);
 	},
 	
-	resizeViewPort: function(iViewPortWidth, iViewPortHeight) {
+	initMap: function(iTileWidth, iTileHeight, iMapWidth, iMapHeight) {
+		this.tileWidth = iTileWidth;
+		this.tileHeight = iTileHeight;
+		this.tileHalfWidth = (this.tileWidth / 2);
+		this.tileHalfHeight = (this.tileHeight / 2);
+		this.mapWidthTiles = iMapWidth;
+		this.mapHeightTiles = iMapHeight;
+		this.initViewPort(this.viewPortWidthPx, this.viewPortHeightPx);
+	},
+	
+	initViewPort: function(iViewPortWidth, iViewPortHeight) {
 		this.viewPortWidthPx = iViewPortWidth;
 		this.viewPortHeightPx = iViewPortHeight;
 		this.viewPortWidthTiles = Math.ceil(this.viewPortWidthPx / this.tileWidth);
@@ -144,14 +62,14 @@ var TMap = Class.create({
 	
 	processMap: function(oMapData, fCallBack) {
 		var oThis = this;
-		this.tileWidth = parseInt(oMapData.getAttribute('tile-width'), 10);
-		this.tileHeight = parseInt(oMapData.getAttribute('tile-height'), 10);
-		this.tileHalfWidth = (this.tileWidth / 2);
-		this.tileHalfHeight = (this.tileHeight / 2);
-		this.viewPortWidthTiles = Math.ceil(this.viewPortWidthPx / this.tileWidth);
-		this.viewPortHeightTiles = Math.ceil(this.viewPortHeightPx / this.tileHeight * 2);
-		this.mapWidthTiles = parseInt(oMapData.getAttribute('map-width'), 10);
-		this.mapHeightTiles = parseInt(oMapData.getAttribute('map-height'), 10);
+		
+		this.initMap(
+			parseInt(oMapData.getAttribute('tile-width'), 10),
+			parseInt(oMapData.getAttribute('tile-height'), 10),
+			parseInt(oMapData.getAttribute('map-width'), 10),
+			parseInt(oMapData.getAttribute('map-height'), 10)
+		);
+		
 		var aCSSData = [];
 		this.createTiles(oMapData, aCSSData, function() {
 			//this.createSprites(oMapData, aCSSData, function() {
@@ -166,6 +84,19 @@ var TMap = Class.create({
 				this.createMap(oMapData);
 				fCallBack.call(oThis);
 			//});
+		});
+	},
+	
+	createTile: function(sTileUri, iTileWidth, iTileHeight) {
+		return this.viewPort.ownerDocument.createElement('div').setStyle({
+			'position': 'absolute',
+			'width': (iTileWidth + 'px'),
+			'height': (iTileHeight + 'px'),
+			'background-image': 'url("' + sTileUri + '")',
+			'margin-top': (this.tileHeight - iTileHeight) + 'px',
+			'margin-left': ((this.tileWidth - iTileWidth) / 2) + 'px',
+			'background-repeat': 'no-repeat',
+			'background-position': 'center center'
 		});
 	},
 	
@@ -293,6 +224,7 @@ var TMap = Class.create({
 		var x = (iCell * this.tileWidth);
 		var y = (iRow * this.tileHalfHeight);
 		if (iRow % 2 != 0) x = (iCell * this.tileWidth) + this.tileHalfWidth;
+		y -= this.tileHalfHeight;
 		return [x, y];
 	},
 	
@@ -373,18 +305,17 @@ var TMap = Class.create({
 			for (var iCell = iFromCell; iCell < iToCell; iCell++) {
 				var sIndex = (iRow + '.' + iCell);
 				var oTile = this.mapData[sIndex];
-				if (!oTile) {
-					var sObject = (this.objects[sIndex] || 'ground');
+				if ((!oTile) && (this.objects[sIndex]) && (this.tiles[this.objects[sIndex]])) {
 					var iTileLeft = (this.tileWidth * iCell + iOffset) - iTileOffsetX;
 					oTile = this.mapData[sIndex] = oFragment.appendChild(
-						this.tiles[sObject].cloneNode(false).setStyle({
+						this.tiles[this.objects[sIndex]].cloneNode(false).setStyle({
 							'left': iTileLeft + iScrollX + 'px',
 							'top': iTileTop + iScrollY + 'px',
 							'z-index': iRow
 						})
 					);
 				}
-				oTile.accessTime = iAccessTime;
+				if (oTile) oTile.accessTime = iAccessTime;
 			}
 		}
 		
