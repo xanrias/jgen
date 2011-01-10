@@ -331,38 +331,6 @@ var TMap = Class.create({
 		}
 		
 		this.viewPort.appendChild(oFragment);
-	},
-	/*
-	renderX: function() {
-		
-		var oCanvas = document.createElement('canvas');
-		oCanvas.setAttribute('width', this.viewPortWidthPx);
-		oCanvas.setAttribute('height', this.viewPortHeightPx);
-		var oContext = oCanvas.getContext("2d");
-		
-		for (var iRow = 0; iRow < this.viewPortHeightTiles; iRow++) {
-			for (var iCell = 0; iCell < this.viewPortWidthTiles; iCell++) {
-				var aTilePos = this.map2screen(iCell, iRow);
-				var oResource = this.resources['ground'];
-				
-				if ((iCell == 4) && (iRow == 20)) oResource = this.resources['cube'];
-				if ((iCell > 6) && (iRow > 20) && (iRow < 35)) oResource = this.resources['grass'];
-				
-				var iHeight = (oResource.height - this.tileHeight);
-				
-				oContext.drawImage(
-					oResource,
-					aTilePos[0],
-					aTilePos[1] - iHeight,
-					oResource.width,
-					oResource.height
-				);
-			}
-		}
-		
-		this.viewPort.style.backgroundImage = 'url("'+oCanvas.toDataURL()+'")';
-		this.viewPort.style.backgroundRepeat = 'no-repeat';
-		this.viewPort.style.backgroundAttachment = 'fixed';
-	}*/
+	}
 	
 });

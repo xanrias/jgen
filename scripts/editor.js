@@ -82,6 +82,7 @@ var TEditor = Class.create({
 			
 			var oCategoryNameElement = oElement.ownerDocument.createElement('div');
 			oCategoryNameElement.className = 'paletteCategoryName';
+			
 			oCategoryNameElement.innerHTML = (sCategoryName + ' (' + Object.keys(this.objects[sCategoryName]).length + ')');
 			oCategoryElement.appendChild(oCategoryNameElement);
 		
