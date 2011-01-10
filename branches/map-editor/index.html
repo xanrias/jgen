@@ -4,6 +4,7 @@
 		<title>jGen Map Editor</title>
 		<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
 		<script type="text/javascript" src="scripts/oop.js"></script>
+		<script type="text/javascript" src="scripts/fsutils.js"></script>
 		<script type="text/javascript" src="scripts/string.js"></script>
 		<script type="text/javascript" src="scripts/html.js"></script>
 		<script type="text/javascript" src="scripts/math.js"></script>
@@ -58,7 +59,7 @@
 		
 		<script type="text/javascript">
 			function start() {
-				var oEditor = new TEditor();
+				oEditor = new TEditor();
 				oEditor.loadLibrary('library/library.xml', function() {
 					
 					this.renderPalette(document.querySelector('.leftColumn'));
@@ -151,9 +152,48 @@
 					})).start();
 				});
 			}
+			
+			function saveFileDialogInit() {
+				document.querySelector('.saveFileDialog object').addEventListener('onsave', function() {
+					return {
+						'data': oEditor.saveMapData(),
+						'filename': 'map.xml'
+					};
+				}.toString());
+			}
+			
+			function openFileDialogInit() {
+				document.querySelector('.openFileDialog object').addEventListener('onload', function(sData) {
+					oEditor.loadMapData(window.atob(sData));
+				}.toString());
+			}
+			
 		</script>
 	</head>
 	<body onload="start();">
+		<div class="toolbar">
+			
+			<div class="openFileDialog">
+				<object>
+					<param name="movie" value="scripts/fsutils.swf" />
+					<param name="allowScriptAccess" value="sameDomain" />
+					<param name="FlashVars" value="onload=openFileDialogInit&dialogType=open&fileFilter=*.xml" />
+					<param name="wmode" value="transparent" />
+				</object>
+				<div>Load Map...</div>
+			</div>
+			
+			<div class="saveFileDialog">
+				<object>
+					<param name="movie" value="scripts/fsutils.swf" />
+					<param name="allowScriptAccess" value="sameDomain" />
+					<param name="FlashVars" value="onload=saveFileDialogInit&dialogType=save" />
+					<param name="wmode" value="transparent" />
+				</object>
+				<div>Save Map...</div>
+			</div>
+			
+		</div>
 		<div class="leftColumn"></div>
 		<div class="viewPort">
 			<div class="fpsWindow"></div>

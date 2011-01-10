@@ -88,7 +88,7 @@ var TMap = Class.create({
 	},
 	
 	createTile: function(sTileUri, iTileWidth, iTileHeight) {
-		return this.viewPort.ownerDocument.createElement('div').setStyle({
+		var oTile = this.viewPort.ownerDocument.createElement('div').setStyle({
 			'position': 'absolute',
 			'width': (iTileWidth + 'px'),
 			'height': (iTileHeight + 'px'),
@@ -98,6 +98,8 @@ var TMap = Class.create({
 			'background-repeat': 'no-repeat',
 			'background-position': 'center center'
 		});
+		oTile.tileUrl = sTileUri;
+		return oTile;
 	},
 	
 	createTiles: function(oMapData, aCSSData, fCallBack) {

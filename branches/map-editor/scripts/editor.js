@@ -132,8 +132,52 @@ var TEditor = Class.create({
 		this.drawGrid(iTileWidth, iTileHeight, '#CDCDCD', oElement);
 		
 		//this.map.loadMap('map.xml', function() {
-		//	this.render(0, 0);
+		//	
 		//});
+	},
+	
+	loadMapData: function(sMapData) {
+		var oThis = this;
+		var oDOMParser = new DOMParser();
+		var oMapData = oDOMParser.parseFromString(sMapData, "text/xml");
+		this.map.processMap(oMapData.documentElement, function() {
+			oThis.renderMap(0, 0);
+		});
+	},
+	
+	saveMapData: function() {
+		var oXMLDocument = document.implementation.createDocument("", "map", null);
+		var oDocumentElement = oXMLDocument.documentElement;
+		oDocumentElement.setAttribute('tile-width', this.map.tileWidth);
+		oDocumentElement.setAttribute('tile-height', this.map.tileHeight);
+		oDocumentElement.setAttribute('map-width', this.map.mapWidthTiles);
+		oDocumentElement.setAttribute('map-height', this.map.mapHeightTiles);
+		
+		var oTiles = {};
+		var oTilesElement = oDocumentElement.appendChild(oXMLDocument.createElement('tiles'));
+		var oMapElement = oDocumentElement.appendChild(oXMLDocument.createElement('map'));
+		for (var sObjectKey in this.map.objects) {
+			var sTileId = this.map.objects[sObjectKey];
+			
+			if (!oTiles[sTileId]) {
+				oTiles[sTileId] = true;
+				var oTileDefElement = oXMLDocument.createElement('tile');
+				oTileDefElement.setAttribute('id', sTileId);
+				oTileDefElement.setAttribute('uri', this.map.tiles[sTileId].tileUrl);
+				oTilesElement.appendChild(oTileDefElement);
+			}
+			
+			var aObjectPos = sObjectKey.split('.');
+			var oTileElement = oXMLDocument.createElement('tile');
+			oTileElement.setAttribute('refid', sTileId);
+			oTileElement.setAttribute('x', aObjectPos[1]);
+			oTileElement.setAttribute('y', aObjectPos[0]);
+			oMapElement.appendChild(oTileElement);
+		}
+		
+		return '<?xml version="1.0" encoding="UTF-8"?>\r\n' + (
+			new XMLSerializer()
+		).serializeToString(oXMLDocument);
 	},
 	
 	renderMap: function(iScrollX, iScrollY) {
