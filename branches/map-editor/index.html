@@ -27,12 +27,7 @@
 					this.eventHandler = function(oEvent) {
 						// update metakey state
 						oThis.gameState.metaKey = oEvent.metaKey;
-						
-						if (oEvent.type == 'change') {
-							if (oEvent.target.name == 'heightSlider') oThis.gameState.height = parseInt(oEvent.target.value, 10);
-						}
-						
-						else if (oEvent.type == 'keydown') oThis.gameState.keys[oEvent.keyCode] = true;
+						if (oEvent.type == 'keydown') oThis.gameState.keys[oEvent.keyCode] = true;
 						else if (oEvent.type == 'keyup') oThis.gameState.keys[oEvent.keyCode] = false;
 						else if (oEvent.type == 'mousedown') oThis.gameState.mouse.down = true;
 						else if (oEvent.type == 'mouseup') oThis.gameState.mouse.down = false;
@@ -146,18 +141,6 @@
 							iCaptureY = -1;
 						}
 						
-						/*
-						if (iHeight != oGameState.height) {
-							iHeight = oGameState.height;
-							for (var sIndex in oEditor.map.mapData) {
-								var oTile = oEditor.map.mapData[sIndex];
-								if (oTile.offsetHeight == 32) {
-									oTile.style.opacity = iHeight / 100;
-								}
-							}
-							 
-						}
-						*/
 						var iNewSecond = (new Date()).getSeconds();
 						if (iNewSecond != iSecond) {
 							iSecond = iNewSecond;
@@ -174,9 +157,6 @@
 		<div class="leftColumn"></div>
 		<div class="viewPort">
 			<div class="fpsWindow"></div>
-		</div>
-		<div class="rightPanel">
-			<input name="heightSlider" type="range" min="0" max="100" step="1" value="0" />
 		</div>
 	</body>
 </html>
