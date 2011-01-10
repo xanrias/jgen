@@ -32,8 +32,8 @@ html, body {
 }
 
 .paletteCategoryName {
-	height: 30px;
-	line-height: 30px;
+	height: 22px;
+	line-height: 22px;
 	text-align: center;
 	font-family: arial;
 	color: #333333;
@@ -54,7 +54,7 @@ html, body {
 	display: none;
 	height: 100%;
 	overflow: auto;
-	border-bottom: 30px solid transparent;
+	border-bottom: 22px solid transparent;
 }
 
 .paletteCategory.selected .paletteCategoryName {

@@ -117,7 +117,6 @@ var TMap = Class.create({
 						('position:absolute;'),
 						('width:' + this.width + 'px;'),
 						('height:' + this.height + 'px;'),
-						//('opacity:0.9'),
 						('background-image:url("' + sTileUri + '");'),
 						('margin-top:' + (oThis.tileHeight - this.height) + 'px;'),
 						('margin-left:' + (oThis.tileWidth - this.width) / 2 + 'px;'),
