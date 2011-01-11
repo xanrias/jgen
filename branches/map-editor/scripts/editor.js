@@ -8,6 +8,14 @@ var TEditor = Class.create({
 		var oThis = this;
 		document.addEventListener('mousedown', function(oEvent) {
 			var oSender = oEvent.target;
+			var oToolbarButton = oSender.queryAncestor('.toolbarButton');
+			if (oToolbarButton) {
+				if (oToolbarButton.hasClass('hideGrid')) {
+					document.documentElement.addClass('hide-grid');
+				} else if (oToolbarButton.hasClass('showGrid')) {
+					document.documentElement.removeClass('hide-grid');
+				}
+			}
 			var oLibraryItem = oSender.queryAncestor('.paletteItem');
 			if (oLibraryItem) {
 				var oSelectedElement = oLibraryItem.parentNode.querySelector('.paletteItem.selected');
