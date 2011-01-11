@@ -39,7 +39,6 @@
 				},
 				start: function(oViewPort) {
 					var oThis = this;
-					document.addEventListener('change', this.eventHandler, false);
 					document.addEventListener('keydown', this.eventHandler, false);
 					document.addEventListener('keyup', this.eventHandler, false);
 					this.viewPort.addEventListener('mousemove', this.eventHandler, false);
@@ -191,6 +190,9 @@
 				</object>
 				<div>Save Map...</div>
 			</div>
+			
+			<div class="toolbarButton hideGrid">Hide Grid</div>
+			<div class="toolbarButton showGrid">Show Grid</div>
 			
 		</div>
 		<div class="leftColumn"></div>
