@@ -18,10 +18,15 @@ var TEditor = Class.create({
 			}
 			var oLibraryItem = oSender.queryAncestor('.paletteItem');
 			if (oLibraryItem) {
-				var oSelectedElement = oLibraryItem.parentNode.querySelector('.paletteItem.selected');
-				if (oSelectedElement) oSelectedElement.removeClass('selected');
-				oLibraryItem.addClass('selected');
-				oThis.selectedObject = oThis.objects[oLibraryItem.category][oLibraryItem.name];
+				if (!oLibraryItem.hasClass('selected')) {
+					var oSelectedElement = oLibraryItem.parentNode.querySelector('.paletteItem.selected');
+					if (oSelectedElement) oSelectedElement.removeClass('selected');
+					oLibraryItem.addClass('selected');
+					oThis.selectedObject = oThis.objects[oLibraryItem.category][oLibraryItem.name];
+				} else {
+					oLibraryItem.removeClass('selected');
+					oThis.selectedObject = null;
+				}
 				return;
 			}
 			var oLibraryCategory = oSender.queryAncestor('.paletteCategoryName');
@@ -138,10 +143,6 @@ var TEditor = Class.create({
 		this.map = new TMap(oElement, oElement.offsetWidth, oElement.offsetHeight);
 		this.map.initMap(iTileWidth, iTileHeight, 100, 100);
 		this.drawGrid(iTileWidth, iTileHeight, '#CDCDCD', oElement);
-		
-		//this.map.loadMap('map.xml', function() {
-		//	
-		//});
 	},
 	
 	loadMapData: function(sMapData) {
