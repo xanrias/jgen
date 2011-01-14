@@ -48,6 +48,7 @@ var TSprite = Class.create({
 			'left': this.posX + 'px',
 			'top': this.posY + 'px'
 		});
+		
 	},
 	moveTo: function(x, y) {
 		this.move(
@@ -312,6 +313,8 @@ var TMap = Class.create({
 				oFragment.appendChild(oTile);
 			}
 		}
+		this.spritesViewPort.style.marginLeft = -iScrollX + this.viewPortWidthPx / 2 + 'px';
+		this.spritesViewPort.style.marginTop = -iScrollY + this.viewPortHeightPx / 2 + 'px';
 		this.clearViewPort();
 		this.viewPort.appendChild(oFragment);
 	}
