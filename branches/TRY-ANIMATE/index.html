@@ -1,0 +1,254 @@
+<html>
+	<head>
+		<title>sprites</title>
+		<style>
+			html, body {
+				padding: 0px 0px 0px 0px;
+				margin: 0px 0px 0px 0px;
+				background-image: url('imperialism_tiles/00001.bmp');
+			}
+			.sprite {
+				position: absolute;
+				background-repeat: no-repeat;
+				/*width: 85px;
+				height: 80px;
+				background-image: url('mechwarrior3050_madcat_sheet.png');
+				background-position: -10000px -10000px;
+				*/
+			}
+		</style>
+		<script type="text/javascript">
+			
+			function sprite(oWorld, sSpriteFileName) {
+				
+				this.filename = sSpriteFileName;
+				this.layers = {};
+				this.spriteRef = null;
+				this.world = oWorld;
+				
+				this.spriteX = -1;
+				this.spriteY = -1;
+				
+				this.currentLayer = '';
+				
+				this.addLayer = function(cellA, rowA, cellB, rowB, width, height, layerName) {
+					this.spriteW = width;
+					this.spriteH = height;
+					this.layers[layerName] = {
+						'cellA': cellA,
+						'cellB': cellB,
+						'rowA': rowA,
+						'rowB': rowB,
+						'width': width,
+						'height': height
+					};
+				};
+				
+				this.display = function(screenX, screenY, layerName, frameNumber) {
+					this.layerData = this.layers[layerName];
+					this.spriteRef = document.createElement('div');
+					this.spriteRef.className = 'sprite';
+					
+					this.spriteX = screenX;
+					this.spriteY = screenY;
+					
+					this.spriteRef.style.left = screenX + 'px';
+					this.spriteRef.style.top = screenY + 'px';
+					this.spriteRef.style.width = this.layerData.width + 'px';
+					this.spriteRef.style.height = this.layerData.height + 'px';
+					this.spriteRef.style.backgroundImage = 'url(' + this.filename + ')';
+					this.setFrameNumber(frameNumber);
+					document.body.appendChild(this.spriteRef);
+				};
+				
+				this.setLayer = function(layerName) {
+					this.layerData = this.layers[layerName];
+				};
+				
+				this.setFrameNumber = function(frameNumber) {
+					var X = (this.layerData.cellB - this.layerData.cellA + 1);
+					var Y = (this.layerData.rowB - this.layerData.rowA + 1);
+					var rowNumber = Math.floor(frameNumber / X);
+					var cellNumber = (frameNumber % X);
+					if (cellNumber) rowNumber++;
+					cellNumber += this.layerData.cellA;
+					rowNumber += this.layerData.rowA;
+					this.spriteRef.style.backgroundPositionX = -(cellNumber * this.layerData.width) + 'px';
+					this.spriteRef.style.backgroundPositionY = -(rowNumber * this.layerData.height) + 'px';
+				};
+				
+				this.animate = function(speed, frameStart, frameEnd, loop, fTickCallback, frameNumber) {
+					var X = (this.layerData.cellB - this.layerData.cellA + 1);
+					var Y = (this.layerData.rowB - this.layerData.rowA + 1);
+					
+					if (!frameNumber) frameNumber = frameStart;
+					if (frameNumber > frameEnd) {
+						frameNumber = frameStart;
+						if (!loop) return;
+					}
+					// this how we can calculate if frameNumber goes outside the sprite
+					//if (frameNumber + 1 > (X * Y) - 1) frameNumber = frameStart;
+					
+					var rowNumber = Math.floor(frameNumber / X);
+					var cellNumber = (frameNumber % X);
+					if (cellNumber) rowNumber++;
+					cellNumber += this.layerData.cellA;
+					rowNumber += this.layerData.rowA;
+					this.spriteRef.style.backgroundPositionX = -(cellNumber * this.layerData.width) + 'px';
+					this.spriteRef.style.backgroundPositionY = -(rowNumber * this.layerData.height) + 'px';
+					
+					var oThis = this;
+					this.animationTimeout = setTimeout(function() {
+						fTickCallback.call(oThis, this.world);
+						oThis.animate(speed, frameStart, frameEnd, loop, fTickCallback, frameNumber + 1);
+					}, speed);
+					
+					
+				};
+				
+				this.getPositionX = function() {
+					return parseInt(this.spriteRef.style.left, 10);
+				};
+				
+				this.getPositionY = function() {
+					return parseInt(this.spriteRef.style.top, 10);
+				};
+				
+				this.setPosition = function(x, y) {
+					this.spriteRef.style.left = x + 'px';
+					this.spriteRef.style.top = y + 'px';
+				};
+				
+				//this.play = function(screenX, screenY, layerName, speed, loop, destructCallback, tickCallback, someCallback) {
+				//};
+			}
+			
+			function world() {
+				this.constructor.mouseX = -1;
+				this.constructor.mouseY = -1;
+				var oThis = this;
+				document.documentElement.addEventListener('mousemove', function(oEvent) {
+					oThis.constructor.mouseX = oEvent.pageX;
+					oThis.constructor.mouseY = oEvent.pageY;
+				}, false);
+				return this;
+			};
+			
+			function animate(oEvent) {
+				var oWorld = new world();
+				
+				var oSprite = new sprite(oWorld, 'mechwarrior3050_madcat_sheet.png');
+				// cellA, rowA, cellB, rowB, width, height, layerName
+				oSprite.addLayer(0, 0, 0, 10, 87, 80, 'walk-south');
+				oSprite.addLayer(1, 0, 1, 16, 87, 80, 'walk-south-west');
+				oSprite.addLayer(2, 0, 2, 9, 87, 80, 'walk-west');
+				oSprite.addLayer(3, 0, 3, 15, 87, 80, 'walk-nord-west');
+				oSprite.addLayer(4, 0, 4, 10, 87, 80, 'walk-nord');
+				oSprite.addLayer(5, 0, 5, 15, 87, 80, 'walk-nord-ost');
+				oSprite.addLayer(6, 0, 6, 9, 87, 80, 'walk-ost');
+				oSprite.addLayer(7, 0, 7, 16, 87, 80, 'walk-south-ost');
+				
+				//oSprite.addLayer(0, 0, 71, 0, 170, 170, 'walk-south');
+				// 87x87
+				
+				oSprite.display(oEvent.pageX - 43, oEvent.pageY - 40, 'walk-south', 0);
+				//oSprite.animate(100, 0, 10, true, function(oWorld) {});
+				//oSprite.display(oEvent.pageX, oEvent.pageY, 'walk-south-west', 0);
+				//oSprite.animate(50, 0, 16, true, function(oWorld) {});
+				//oSprite.display(oEvent.pageX, oEvent.pageY, 'walk-west', 0);
+				//oSprite.animate(100, 0, 9, true, function(oWorld) {});
+				//oSprite.display(oEvent.pageX, oEvent.pageY, 'walk-nord-west', 0);
+				//oSprite.animate(100, 0, 15, true, function(oWorld) {});
+				//oSprite.display(oEvent.pageX, oEvent.pageY, 'walk-nord', 0);
+				//oSprite.animate(100, 0, 10, true, function(oWorld) {});
+				//oSprite.display(oEvent.pageX, oEvent.pageY, 'walk-nord-ost', 0);
+				//oSprite.animate(100, 0, 15, true, function(oWorld) {});
+				//oSprite.display(oEvent.pageX, oEvent.pageY, 'walk-ost', 0);
+				//oSprite.animate(100, 0, 9, true, function(oWorld) {});
+				//oSprite.display(oEvent.pageX, oEvent.pageY, 'walk-south-ost', 0);
+				//oSprite.animate(50, 0, 16, true, function(oWorld) {});
+				
+				oSprite.animate(170, 0, 11, true, function(oWorld) {
+					xx = this.getPositionX() + (this.spriteW / 2);
+					yy = this.getPositionY() + (this.spriteH / 2);
+					x = oWorld.mouseX;
+					y = oWorld.mouseY;
+					var degrad = 180 / Math.PI;
+					dx1 = Math.abs(x - xx);
+					dy1 = Math.abs(y - yy);
+					rx = (Math.atan2(dx1, dy1)*degrad);
+					
+					//if (x > 0) degrees += 180;
+					//if (x==0 && y<0) degrees += 180;
+					
+					if ((xx < x) && (yy<y)) {
+						rx= 360 - rx;
+					}
+					
+					if ((xx > x) && (yy>y)) {
+						rx = 180-rx;
+					}
+					
+					if ((xx<x) && (yy>y)) {
+						rx = rx+180;
+					}
+					
+					var iSectors = 8;
+					var iSector = (360 / iSectors);
+					var angle = Math.ceil(rx / iSector);
+					if (rx % iSector > (iSector / 2)) angle++;
+					//if (rx % iSector < (iSector / 2)) angle++;
+					//if (angle < 0) angle = iSectors - 1;
+					if (angle > iSectors) angle = 1;
+					
+					speed = 3.4;
+					
+					switch (angle) {
+						case 1:
+							this.setLayer('walk-south');
+							this.setPosition(this.getPositionX(), this.getPositionY() + speed);
+						break;
+						case 2:
+							this.setLayer('walk-south-west');
+							this.setPosition(this.getPositionX() - speed, this.getPositionY() + speed);
+						break;
+						case 3:
+							this.setLayer('walk-west');
+							this.setPosition(this.getPositionX() - speed, this.getPositionY());
+						break;
+						case 4:
+							this.setLayer('walk-nord-west');
+							this.setPosition(this.getPositionX() - speed, this.getPositionY() - speed);
+						break;
+						case 5:
+							this.setLayer('walk-nord');
+							this.setPosition(this.getPositionX(), this.getPositionY() - speed);
+						break;
+						case 6:
+							this.setLayer('walk-nord-ost');
+							this.setPosition(this.getPositionX() + speed, this.getPositionY() - speed);
+						break;
+						case 7:
+							this.setLayer('walk-ost');
+							this.setPosition(this.getPositionX() + speed, this.getPositionY());
+						break;
+						case 8:
+							this.setLayer('walk-south-ost');
+							this.setPosition(this.getPositionX() + speed, this.getPositionY() + speed);
+						break;
+					};
+					//this.setPosition(oWorld.mouseX, oWorld.mouseY);
+				});
+				
+				// screenX, screenY, layerName, speed, loop, destructCallback, tickCallback, someCallback
+				//oSprite.play(500, 500, 'walk-south', 500, true, function() {
+				//}, function() {
+				//});
+			}
+			
+			
+		</script>
+	</head>
+	<body onclick="animate(event);">
+	</body>
+</html>
