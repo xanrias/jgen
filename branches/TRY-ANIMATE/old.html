@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<title>oop</title>
+		<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
+		
+		<script type="text/javascript" src="scripts/jsface.js"></script>
+		<script type="text/javascript" src="scripts/jgen.math.js"></script>
+		<script type="text/javascript" src="scripts/jgen.html.js"></script>
+		<script type="text/javascript" src="scripts/jgen.string.js"></script>
+		<script type="text/javascript" src="scripts/jgen.event.js"></script>
+		<script type="text/javascript" src="scripts/jgen.selector.js"></script>
+		
+		<script type="text/javascript">
+			
+			window.addEventListener('load', function() {
+				
+				var oLine = jgen.html.setStyle(document.documentElement.appendChild(document.createElement('div')), {
+					'display': 'none',
+					'position': 'absolute',
+					'height': '1px',
+					'text-align': 'center',
+					'border-top': '1px solid red',
+					'font-family': 'tahoma',
+					'font-size': '11px'
+				});
+				
+				function moveTo(oSender, iFromX, iFromY, iToX, iToY) {
+					var iAngle = jgen.math.point2angle(
+						iFromX,
+						iFromY,
+						iToX,
+						iToY
+					);
+					setInterval(function() {
+						move2direction(oSender, iAngle, 3);
+					}, 0);
+				}
+				
+				function move2direction(oSender, angle, delta) {
+					var iSpriteLeft = (oSender.spriteLeft || 0);
+					var iSpriteTop = (oSender.spriteTop || 0);
+					
+					var aDelta = jgen.math.pointOnCircle(iSpriteLeft, iSpriteTop, angle, delta);
+					
+					var iSpriteLeftNew = aDelta[0];
+					var iSpriteTopNew = aDelta[1];
+					
+					jgen.html.setStyle(oSender, {
+						'left': iSpriteLeftNew + 'px',
+						'top': iSpriteTopNew + 'px'
+					});
+					oSender.spriteLeft = iSpriteLeftNew;
+					oSender.spriteTop = iSpriteTopNew;
+				}
+				
+				jgen.event.add(document.documentElement, {'mousedown': '.sprite'}, function(oEvent) {
+					window.captured = oEvent.target;
+				});
+				
+				var aKeyCodes = {};
+				var oSender = jgen.selector.query(document, '.sprite');
+				window.spriteLeft = oSender.offsetLeft;
+				window.spriteTop = oSender.offsetTop;
+				
+				jgen.event.add(document.documentElement, 'keydown', function(oEvent) {
+					aKeyCodes[oEvent.keyCode] = true;
+				});
+				
+				jgen.event.add(document.documentElement, 'keyup', function(oEvent) {
+					aKeyCodes[oEvent.keyCode] = false;
+				});
+				
+				
+				setInterval(function() {
+					var an = (oSender.currentAngle || 0);
+					if (aKeyCodes[38]) move2direction(oSender, an, 2);
+					if (aKeyCodes[40]) move2direction(oSender, an, -2);
+					if (aKeyCodes[39]) {
+						oSender.currentAngle = jgen.math.deg2rad(jgen.math.rad2deg(an) + 1);
+						jgen.html.setStyle(oSender, {'-webkit-transform': 'rotate('+oSender.currentAngle+'rad)'});
+					}
+					if (aKeyCodes[37]) {
+						oSender.currentAngle = jgen.math.deg2rad(jgen.math.rad2deg(an) - 1);
+						jgen.html.setStyle(oSender, {'-webkit-transform': 'rotate('+oSender.currentAngle+'rad)'});
+					}
+				});
+				
+				/*
+				function moveTo(oSender, iFromX, iFromY, iToX, iToY) {
+					
+					var iCenterX = oSender.offsetLeft + oSender.offsetWidth / 2;
+					var iCenterY = oSender.offsetTop + oSender.offsetHeight / 2;
+					
+					var iDistance = jgen.math.point2distance(
+						iFromX,
+						iFromY,
+						iCenterX,
+						iCenterY
+					);
+					
+					var speed = 3;
+					
+					var aPoint = jgen.math.pointOnLine(iFromX, iFromY, iToX, iToY, iDistance + speed);
+					
+					if (jgen.math.point2distance(iCenterX, iCenterY, iToX, iToY) <= speed) {
+						jgen.html.setStyle(oSender, {
+							'left': iToX - oSender.offsetWidth / 2 + 'px',
+							'top': iToY - oSender.offsetHeight / 2 + 'px'
+						});
+					} else {
+						jgen.html.setStyle(oSender, {
+							'left': aPoint[0] - oSender.offsetWidth / 2 + 'px',
+							'top': aPoint[1] - oSender.offsetHeight / 2 + 'px'
+						});
+						setTimeout(function() {
+							moveTo(oSender, iFromX, iFromY, iToX, iToY);
+						}, 1);
+					}
+					
+				}*/
+				
+				
+				jgen.event.add(document.documentElement, 'mouseup', function(oEvent) {
+					if (!window.captured) return;
+					
+					var oSender = window.captured;
+					var iFromX = oSender.offsetLeft + oSender.offsetWidth / 2;
+					var iFromY = oSender.offsetTop + oSender.offsetHeight / 2;
+					moveTo(window.captured, iFromX, iFromY, oEvent.pageX, oEvent.pageY);
+					
+					window.captured = null;
+					jgen.html.setStyle(oLine, {'display': 'none'});
+				});
+				
+				jgen.event.add(document.documentElement, 'mousemove', function(oEvent) {
+					if (!window.captured) return;
+					
+					var oSender = window.captured;
+					var iCenterX = oSender.offsetLeft + oSender.offsetWidth / 2;
+					var iCenterY = oSender.offsetTop + oSender.offsetHeight / 2;
+					
+					var iDistance = jgen.math.point2distance(
+						iCenterX,
+						iCenterY,
+						oEvent.pageX,
+						oEvent.pageY
+					);
+					
+					var iAngle = jgen.math.point2angle(
+						iCenterX,
+						iCenterY,
+						oEvent.pageX,
+						oEvent.pageY
+					);
+					
+					jgen.html.setStyle(oSender, {
+						'-webkit-transform-origin': (oSender.offsetWidth / 2) + 'px '+(oSender.offsetHeight / 2)+'px',
+						'-webkit-transform': 'rotate('+iAngle+'rad)'
+					});
+					
+					oLine.innerHTML = Math.ceil(iDistance) + ' m ' + Math.ceil(jgen.math.rad2deg(iAngle)) + 'deg';
+					
+					jgen.html.setStyle(oLine, {
+						'display': 'block',
+						'left': iCenterX + 'px',
+						'top': iCenterY + 'px',
+						'width': iDistance + 'px',
+						'-webkit-transform-origin': '0px 0px',
+						'-webkit-transform': 'rotate('+iAngle+'rad)'
+					});
+					
+				});
+				
+			});
+			
+			
+		</script>
+		
+	</head>
+	<body>
+		<div class="sprite"></div>
+	</body>
+</html>
