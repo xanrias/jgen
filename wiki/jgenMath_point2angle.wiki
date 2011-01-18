@@ -16,8 +16,8 @@ This method returns angle (in radians) between two points provided as an argumen
 
 {{{
 // will return: 0.7853981633974483
-var iAngle1 = jgen.Math.point2distance(0, 0, 100, 100);
+var iAngle1 = jgen.Math.point2angle(0, 0, 100, 100);
 
 // will return: 1.5707963267948966
-var iAngle2 = jgen.Math.point2distance([0, 0], [0, 50]);
+var iAngle2 = jgen.Math.point2angle([0, 0], [0, 50]);
 }}}
