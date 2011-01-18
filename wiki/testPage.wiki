@@ -1,1 +1,1 @@
-<wiki:gadget width="320" height="240" url="http://hosting.gmodules.com/ig/gadgets/file/110044712259208757856/iframe.xml" up_myurl="svn/trunk/index.html" up_mywidth="320" up_myheight="240" />
+<wiki:gadget width="320" height="240" url="http://hosting.gmodules.com/ig/gadgets/file/110044712259208757856/iframe.xml" up_myurl="http://code.google.com/p/jgen/svn/trunk/index.html" up_mywidth="320" up_myheight="240" />
