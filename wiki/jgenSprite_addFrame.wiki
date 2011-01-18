@@ -4,8 +4,8 @@ This method adds new sprite frame to a sprite. The width and heights of the fram
 
 *Arguments:*
 
-  * frameX - x position of the frame relative to the spritesheet
-  * frameY - y position of the frame relative to the spritesheet
+  * iFrameX - x position of the frame relative to the spritesheet
+  * iFrameY - y position of the frame relative to the spritesheet
 
 *Example:*
 
