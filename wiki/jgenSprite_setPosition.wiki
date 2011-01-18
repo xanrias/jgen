@@ -12,8 +12,10 @@ This method sets sprite position.
 {{{
 // create sprite
 var oExplosion = new jgen.Sprite(...);
+
 // set sprite position
 oExplosion.setPosition(200, 200);
+
 // display sprite
 oExplosion.setVisible(true);
 // wait 5 seconds
