@@ -1,5 +1,6 @@
-  * FOUT
-    * ONE
-    * TWO
-    * THREE
-  * FFFF
+  * jgen.Sprite.js
+    * constructor
+    * clone
+    * destroy
+    * setVisible
+    * setPosition
