@@ -11,3 +11,5 @@
     * [jgenSprite_destroy destroy]
     * [jgenSprite_setVisible setVisible]
     * [jgenSprite_setPosition setPosition]
+    * [jgenSprite_addFrame addFrame]
+    * [jgenSprite_setFrame setFrame]
