@@ -1,5 +1,5 @@
   * jgen.Sprite.js
-    * [jgen.sprite.constructor constructor]
+    * [jgenSpriteConstructor constructor]
     * [clone]
     * [destroy]
     * [setVisible]
