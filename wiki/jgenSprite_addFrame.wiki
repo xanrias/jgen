@@ -12,11 +12,13 @@ This method adds new sprite frame to a sprite. The width and heights of the fram
 {{{
 // create sprite
 var oExplosion = new jgen.Sprite(...);
+
 // add frames
 for (var c = 0; c < 4; c++) oExplosion.addFrame(c * 64, 0);
 for (var c = 0; c < 4; c++) oExplosion.addFrame(c * 64, 64);
 for (var c = 0; c < 4; c++) oExplosion.addFrame(c * 64, 128);
 for (var c = 0; c < 4; c++) oExplosion.addFrame(c * 64, 192);
+
 // display sprite
 oExplosion.setVisible(true);
 }}}
