@@ -2,7 +2,7 @@
 
 This method will destroy Sprite object and it's HTMLElement.
 
-*Example*
+*Example:*
 
 {{{
 // create sprite
