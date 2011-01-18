@@ -2,4 +2,5 @@
 
 This constant is internally used by [jgenMath_rad2deg] and [jgenMath_deg2rad].
 
-It's value is: 180 / Math.PI
+*Value*:
+180 / Math.PI
