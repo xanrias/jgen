@@ -1,4 +1,4 @@
-  * ======jgen.Sprite.js======
+  * <a href="javascript:void(0);">jgen.Sprite.js</a>
     * [jgenSprite_constructor constructor]
     * [jgenSprite_clone clone]
     * [jgenSprite_destroy destroy]
