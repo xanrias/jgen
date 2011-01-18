@@ -2,5 +2,11 @@
 
 This constant is internally used by [jgenMath_rad2deg] and [jgenMath_deg2rad].
 
-*Value*:
+*Value:*
 180 / Math.PI
+
+*Example:*
+{{{
+// will return: 57.29577951308232
+var iDegToRad = jgen.Math.DEG_TO_RAD;
+}}}
