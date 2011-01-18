@@ -19,5 +19,5 @@ This method returns distance between two points provided as an arguments.
 var iDistance1 = jgen.Math.point2distance(0, 0, 100, 100);
 
 // will return: 70.71067811865476
-var iDistance2 = jgen.Math.point2distance(0, 0, 50, 50);
+var iDistance2 = jgen.Math.point2distance([0, 0], [50, 50]);
 }}}
