@@ -1,1 +1,1 @@
-<wiki:gadget url="http://hosting.gmodules.com/ig/gadgets/file/110044712259208757856/iframe.xml" up_myurl="http://code.google.com/" />
+<wiki:gadget url="http://hosting.gmodules.com/ig/gadgets/file/110044712259208757856/iframe.xml" up_myurl="http://jgen.googlecode.com/svn/trunk/index.html" />
