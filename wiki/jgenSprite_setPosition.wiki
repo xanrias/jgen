@@ -2,7 +2,12 @@
 
 This method sets sprite position.
 
-*Example*
+*Arguments:*
+
+  * iSpriteX - x position of the sprite
+  * iSpriteY - y position of the sprite
+
+*Example:*
 
 {{{
 // create sprite
