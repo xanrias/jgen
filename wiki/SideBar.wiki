@@ -1,6 +1,6 @@
   * jgen.Sprite.js
-    * [jgenSpriteConstructor constructor]
-    * [clone]
-    * [destroy]
-    * [setVisible]
-    * [setPosition]
+    * [jgenSprite_constructor constructor]
+    * [jgenSprite_clone clone]
+    * [jgenSprite_destroy destroy]
+    * [jgenSprite_setVisible setVisible]
+    * [jgenSprite_setPosition setPosition]
