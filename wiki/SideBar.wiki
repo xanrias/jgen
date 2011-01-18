@@ -1,5 +1,5 @@
   * jgen.Sprite.js
-    * [constructor]
+    * [http://code.google.com/ http://code.google.com/images/code_sm.png]
     * [clone]
     * [destroy]
     * [setVisible]
