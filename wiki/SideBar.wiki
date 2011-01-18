@@ -1,3 +1,11 @@
+  * jgen.Math.js
+    * [jgenMath_DEG_TO_RAD DEG_TO_RAD]
+    * [jgenMath_rad2deg rad2deg]
+    * [jgenMath_deg2rad deg2rad]
+    * [jgenMath_point2distance point2distance]
+    * [jgenMath_point2angle point2angle]
+    * [jgenMath_pointOnCircle pointOnCircle]
+    * [jgenMath_pointOnLine pointOnLine]
   * jgen.EventQueue.js
     * [jgenEventQueue_constructor constructor]
     * [jgenEventQueue_start start]
