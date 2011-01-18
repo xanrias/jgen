@@ -59,9 +59,14 @@ jsface.def({
 		oSpriteElement.parentNode.removeChild(oSpriteElement);
 	},
 	
-	addFrame: function(iLayerLeft, iLayerTop) {
-		return this.spriteFrames.push([-iLayerLeft, -iLayerTop]);
-	},
+	addFrame: [
+		function(iLayerLeft, iLayerTop) {
+			return this.spriteFrames.push([-iLayerLeft, -iLayerTop]);
+		},
+		function(aFramePos) {
+			return this.addFrame(aFramePos[0], aFramePos[1]);
+		}
+	],
 	
 	setFrame: function(iFrameNumber, iFrameTo) {
 		if (this.spriteFrame != iFrameNumber) {
