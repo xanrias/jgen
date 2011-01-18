@@ -2,7 +2,11 @@
 
 This method controls sprite visibility.
 
-*Example*
+*Arguments:*
+
+  * bVisible - sets sprite visibility.
+
+*Example:*
 
 {{{
 // create sprite
