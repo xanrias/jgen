@@ -6,6 +6,9 @@
     * [jgenMath_point2angle point2angle]
     * [jgenMath_pointOnCircle pointOnCircle]
     * [jgenMath_pointOnLine pointOnLine]
+  * jgen.String.js
+    * [jgenString_camelize camelize]
+    * [jgenString_trim trim]
   * jgen.HTML.js
     * [jgenHTML_setStyle setStyle]
     * [jgenHTML_setClass setClass]
