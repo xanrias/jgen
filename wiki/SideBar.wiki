@@ -6,6 +6,13 @@
     * [jgenMath_point2angle point2angle]
     * [jgenMath_pointOnCircle pointOnCircle]
     * [jgenMath_pointOnLine pointOnLine]
+  * jgen.HTML.js
+    * [jgenHTML_setStyle setStyle]
+    * [jgenHTML_setClass setClass]
+    * [jgenHTML_hasClass hasClass]
+    * [jgenHTML_addClass addClass]
+    * [jgenHTML_replaceClass replaceClass]
+    * [jgenHTML_removeClass removeClass]
   * jgen.EventQueue.js
     * [jgenEventQueue_constructor constructor]
     * [jgenEventQueue_start start]
