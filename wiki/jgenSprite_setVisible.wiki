@@ -11,8 +11,10 @@ This method controls sprite visibility.
 {{{
 // create sprite
 var oExplosion = new jgen.Sprite(...);
+
 // display sprite
 oExplosion.setVisible(true);
+
 // wait 5 seconds
 setTimeout(function() {
         // hide sprite
