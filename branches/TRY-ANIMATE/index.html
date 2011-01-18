@@ -1,106 +1,72 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
-		<title>oop</title>
+		<title>Sprite Animation Demo</title>
 		<link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
 		<script type="text/javascript" src="scripts/jsface.js"></script>
-		<script type="text/javascript" src="scripts/jgen.math.js"></script>
-		<script type="text/javascript" src="scripts/jgen.html.js"></script>
-		<script type="text/javascript" src="scripts/jgen.string.js"></script>
-		<script type="text/javascript" src="scripts/jgen.event.js"></script>
-		<script type="text/javascript" src="scripts/jgen.selector.js"></script>
-		<script type="text/javascript" src="scripts/jgen.sprite.js"></script>
+		<script type="text/javascript" src="scripts/jgen.Math.js"></script>
+		<script type="text/javascript" src="scripts/jgen.HTML.js"></script>
+		<script type="text/javascript" src="scripts/jgen.String.js"></script>
+		<script type="text/javascript" src="scripts/jgen.Event.js"></script>
+		<script type="text/javascript" src="scripts/jgen.Selector.js"></script>
+		<script type="text/javascript" src="scripts/jgen.Sprite.js"></script>
+		<script type="text/javascript" src="scripts/jgen.EventQueue.js"></script>
 		<script type="text/javascript">
+			
 			window.addEventListener('load', function() {
+				var oEventQueue = new jgen.EventQueue();
 				
-				var thissound= document.getElementById('sound1');
-				var oSprite = new jgen.sprite(document.body, 'media/sprite.png', 64, 64);
+				var oSprite = new jgen.Sprite(document.body, 'mechwarrior3050_madcat_sheet.png', 87, 80, oEventQueue);
+				
+				// walking down
+				for (var c = 0; c < 11; c++) oSprite.addFrame(0, c * 80);
+				// walking up
+				for (var c = 0; c < 11; c++) oSprite.addFrame(87 * 4, c * 80);
+				// walking right
+				for (var c = 0; c < 10; c++) oSprite.addFrame(87 * 6, c * 80);
+				// walking left
+				for (var c = 0; c < 10; c++) oSprite.addFrame(87 * 2, c * 80);
+				// walking down left
+				for (var c = 0; c < 17; c++) oSprite.addFrame(87, c * 80);
+				// walking top left
+				for (var c = 0; c < 16; c++) oSprite.addFrame(87 * 3, c * 80);
+				// walking top right
+				for (var c = 0; c < 16; c++) oSprite.addFrame(87 * 5, c * 80);
+				// walking bottom right
+				for (var c = 0; c < 17; c++) oSprite.addFrame(87 * 7, c * 80);
+				
+				oSprite.setPosition(550, 250);
 				oSprite.setVisible(true);
 				
-				// when creating a sprite there must be a way to set base angle on it
-				// so it's not necessary to change the sprite itself to achieve right rotation
-				
-				var oExplosion = new jgen.sprite(document.body, 'media/explosion.png', 64, 64);
-				oExplosion.addFrame(0, 0);
-				oExplosion.addFrame(64, 0);
-				oExplosion.addFrame(128, 0);
-				oExplosion.addFrame(192, 0);
-				oExplosion.addFrame(0, 64);
-				oExplosion.addFrame(64, 64);
-				oExplosion.addFrame(128, 64);
-				oExplosion.addFrame(192, 64);
-				oExplosion.addFrame(0, 128);
-				oExplosion.addFrame(64, 128);
-				oExplosion.addFrame(128, 128);
-				oExplosion.addFrame(192, 128);
-				oExplosion.addFrame(0, 192);
-				oExplosion.addFrame(64, 192);
-				oExplosion.addFrame(128, 192);
-				oExplosion.addFrame(192, 192);
-				
-				var aKeyCodes = {};
-				
-				jgen.event.add(document.documentElement, 'keydown', function(oEvent) {
-					aKeyCodes[oEvent.keyCode] = true;
-				});
-				
-				jgen.event.add(document.documentElement, 'keyup', function(oEvent) {
-					aKeyCodes[oEvent.keyCode] = false;
-				});
-				
-				setInterval(function() {
-					if (aKeyCodes[32]) if (!window.launched) {
-						window.launched = true;
-						setTimeout(function() {
-								window.launched = false;
-						}, 700);
-						var aLaunchTo = jgen.math.pointOnCircle(
-							oSprite.spriteLeft,
-							oSprite.spriteTop,
-							oSprite.spriteRotation,
-							700
-						);
-						
-						var oMisille = new jgen.sprite(document.body, 'media/missile-sprite.png', 25, 97);
-						oMisille.setPosition(
-							oSprite.spriteLeft + oSprite.spriteWidth / 2 - oMisille.spriteWidth / 2,
-							oSprite.spriteTop + oSprite.spriteHeight / 2 - oMisille.spriteHeight / 2
-						);
-						oMisille.setRotationBase(jgen.math.deg2rad(90));
-						oMisille.setRotation(oSprite.spriteRotation);
-						
-						oMisille.animateMove(aLaunchTo[0], aLaunchTo[1], function() {
-							var oExplosionSprite = oExplosion.clone();
-							oExplosionSprite.setPosition(
-								oMisille.spriteLeft,
-								oMisille.spriteTop
-							);
-							oExplosionSprite.setVisible(true);
-							
-							var oMovie = document.createElement('embed');
-							oMovie.setAttribute('autostart', true);
-							oMovie.style.marginTop = '-100000px';
-							oMovie.style.position = 'absolute';
-							oMovie.setAttribute('src', 'bomb.wav');
-							document.body.appendChild(oMovie);
-							setTimeout(function() {
-									document.body.removeChild(oMovie);
-							}, 1000);
-							
-							oExplosionSprite.animateFrames(0, 15, function() {
-								oExplosionSprite.destroy();
-							});
-							oMisille.destroy();
-						});
-						oMisille.setVisible(true);
+				oEventQueue.start(function() {
+					
+					if ((this.keys[39]) && (this.keys[40])) {
+						// walking bottom right
+						oSprite.animate(91, 107, 4, function() { this.setFrame(91); });
+					} else if ((this.keys[37]) && (this.keys[38])) {
+						// walking top left
+						oSprite.animate(59, 74, 4, function() { this.setFrame(59); });
+					} else if ((this.keys[39]) && (this.keys[38])) {
+						// walking top right
+						oSprite.animate(75, 90, 4, function() { this.setFrame(75); });
+					} else if ((this.keys[37]) && (this.keys[40])) {
+						// walking down left
+						oSprite.animate(42, 58, 4, function() { this.setFrame(42); });
+					} else if (this.keys[39]) {
+						// walking right
+						oSprite.animate(22, 31, 4, function() { this.setFrame(22); });
+					} else if (this.keys[37]) {
+						// walking left
+						oSprite.animate(32, 41, 4, function() { this.setFrame(32); });
+					} else if (this.keys[38]) {
+						// walking up
+						oSprite.animate(11, 21, 4, function() { this.setFrame(11); });
+					} else if (this.keys[40]) {
+						// walking down
+						oSprite.animate(0, 10, 4, function() { this.setFrame(0); });
 					}
-					if (aKeyCodes[38]) oSprite.moveForward(1);
-					if (aKeyCodes[40]) oSprite.moveForward(-1);
-					if (aKeyCodes[39]) oSprite.rotate(0.01);
-					if (aKeyCodes[37]) oSprite.rotate(-0.01);
-				}, 0);
-				
-				
+					this.processEvents();
+				}, 10);
 				
 			});
 		</script>

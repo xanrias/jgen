@@ -6,18 +6,3 @@ html, body {
 	overflow: hidden;
 	position: absolute;
 }
-
-.sprite {
-	position: absolute;
-	width: 64px;
-	height: 64px;
-	background-image: url('../media/sprite.png');
-	background-repeat: no-repeat;
-	/*
-	border-right: 10px solid red;
-	left: 50%;
-	top: 50%;
-	background-color: black;
-	border-radius: 20px;
-	*/
-}
