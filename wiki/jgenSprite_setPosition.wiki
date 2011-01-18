@@ -18,6 +18,7 @@ oExplosion.setPosition(200, 200);
 
 // display sprite
 oExplosion.setVisible(true);
+
 // wait 5 seconds
 setTimeout(function() {
 	// move sprite into new position
