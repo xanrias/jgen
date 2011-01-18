@@ -5,6 +5,9 @@ This method will clone Sprite object and return a new one.
 === Example ===
 
 {{{
+// Create Sprite
+var oExplosionSprite = new jgen.Sprite(...);
+// Clone sprites in the loop
 for (var c = 0; c < 5; c++) {
 	// Clone initial sprite
 	var oExplosion = oExplosionSprite.clone();
