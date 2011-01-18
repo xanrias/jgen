@@ -7,7 +7,7 @@ This method adds new sprite frame to a sprite. The width and heights of the fram
   * frameX - x position of the frame relative to the spritesheet
   * frameY - y position of the frame relative to the spritesheet
 
-*Example*
+*Example:*
 
 {{{
 // create sprite
