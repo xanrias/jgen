@@ -1,5 +1,5 @@
   * jgen.Sprite.js
-    * [../../wiki/sssss/ constructor]
+    * [dfdfdf constructor]
     * [clone]
     * [destroy]
     * [setVisible]
