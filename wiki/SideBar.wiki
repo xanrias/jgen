@@ -1,10 +1,10 @@
-  * `jgen.Sprite.js`
+  * ======jgen.Sprite.js======
     * [jgenSprite_constructor constructor]
     * [jgenSprite_clone clone]
     * [jgenSprite_destroy destroy]
     * [jgenSprite_setVisible setVisible]
     * [jgenSprite_setPosition setPosition]
-  * {{{jgen.EventQueue.js}}}
+  * ======jgen.EventQueue.js======
     * [jgenEventQueue_constructor constructor]
     * [jgenEventQueue_start start]
     * [jgenEventQueue_addCallBack addCallBack]
