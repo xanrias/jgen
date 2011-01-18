@@ -1,0 +1,19 @@
+#summary controls sprite position
+
+This method sets sprite position.
+
+*Example*
+
+{{{
+// create sprite
+var oExplosion = new jgen.Sprite(...);
+// set sprite position
+oExplosion.setPosition(200, 200);
+// display sprite
+oExplosion.setVisible(true);
+// wait 5 seconds
+setTimeout(function() {
+	// move sprite into new position
+	oExplosion.setPosition(0, 0);
+}, 5000);
+}}}
