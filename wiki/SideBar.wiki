@@ -1,6 +1,7 @@
   * jgen.EventQueue.js
     * [jgenEventQueue_constructor constructor]
     * [jgenEventQueue_start start]
+    * [jgenEventQueue_stop stop]
     * [jgenEventQueue_addCallBack addCallBack]
     * [jgenEventQueue_addEvent addEvent]
     * [jgenEventQueue_processEvents processEvents]
