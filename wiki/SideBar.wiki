@@ -1,4 +1,4 @@
-  * {{{jgen.Sprite.js}}}
+  * `jgen.Sprite.js`
     * [jgenSprite_constructor constructor]
     * [jgenSprite_clone clone]
     * [jgenSprite_destroy destroy]
