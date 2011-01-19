@@ -68,7 +68,7 @@ jsface.def({
 		}
 	],
 	
-	setFrame: function(iFrameNumber, iFrameTo) {
+	setFrame: function(iFrameNumber) {
 		if (this.spriteFrame != iFrameNumber) {
 			var aFramePos = this.spriteFrames[this.spriteFrame = iFrameNumber];
 			this.spriteArray.addEvent(this.spriteElement, {
