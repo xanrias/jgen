@@ -59,16 +59,11 @@ jsface.def({
 		oSpriteElement.parentNode.removeChild(oSpriteElement);
 	},
 	
-	addFrame: [
-		function(iLayerLeft, iLayerTop) {
-			return this.spriteFrames.push([-iLayerLeft, -iLayerTop]);
-		},
-		function(aFramePos) {
-			return this.addFrame(aFramePos[0], aFramePos[1]);
-		}
-	],
+	addFrame: function(iLayerLeft, iLayerTop) {
+		return this.spriteFrames.push([-iLayerLeft, -iLayerTop]);
+	},
 	
-	setFrame: function(iFrameNumber) {
+	setFrame: function(iFrameNumber, iFrameTo) {
 		if (this.spriteFrame != iFrameNumber) {
 			var aFramePos = this.spriteFrames[this.spriteFrame = iFrameNumber];
 			this.spriteArray.addEvent(this.spriteElement, {
@@ -152,9 +147,13 @@ jsface.def({
 		}
 	],
 	
+	getPosition: function() {
+		return [this.spriteLeft, this.spriteTop];
+	},
+	
 	moveForward: function(iDistance) {
-		this.setPosition(jgen.Math.pointOnCircle(
-			this.spriteLeft, this.spriteTop,
+		this.setPosition(jgen.Math.pointOfCircle(
+			[this.spriteLeft, this.spriteTop],
 			this.spriteRotation, iDistance
 		));
 	},
