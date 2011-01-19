@@ -1,4 +1,4 @@
-  * jgen.Math.js
+  * [jgenMath jgen.Math.js]
     * [jgenMath_DEG_TO_RAD DEG_TO_RAD]
     * [jgenMath_rad2deg rad2deg]
     * [jgenMath_deg2rad deg2rad]
