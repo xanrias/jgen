@@ -10,6 +10,14 @@ jsface.def({
 	keys: {},
 	mouse: {},
 	
+	EventQueue: function(viewPort) {
+		this.viewPort = viewPort;
+	},
+	
+	getViewPort: function() {
+		return this.viewPort;
+	},
+	
 	start: function(fCallBack, iDelay) {
 		var oThis = this;
 		document.addEventListener('keydown', function(oEvent) {
@@ -26,7 +34,7 @@ jsface.def({
 	},
 	
 	addCallBack: function(oSender, fCallBack, iSkipFrames) {
-		this.events.push([oSender, fCallBack, iSkipFrames ? iSkipFrames : 0]);
+		this.events.push([oSender, fCallBack, iSkipFrames ? iSkipFrames : 0, ]);
 	},
 	
 	addEvent: function(oSender, oProperties) {

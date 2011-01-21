@@ -10,42 +10,77 @@ jsface.def({
 	
 	DEG_TO_RAD: (180 / Math.PI),
 	
-	rad2deg: function(iRadians) {
-		return (iRadians * this.DEG_TO_RAD);
+	rad2deg: function(angle) {
+		return (angle * this.DEG_TO_RAD);
 	},
 	
-	deg2rad: function(iDegrees) {
-		return (iDegrees / this.DEG_TO_RAD);
+	deg2rad: function(angle) {
+		return (angle / this.DEG_TO_RAD);
 	},
 	
-	point2distance: function(aPointA, aPointB) {
+	random: function(min, max) {
+		return Math.round(min + (Math.random() * (max - min)));
+	},
+	
+	point2distance: function(point1, point2) {
 		return Math.sqrt(
-			Math.pow(aPointB[0] - aPointA[0], 2) +
-			Math.pow(aPointB[1] - aPointA[1], 2)
+			Math.pow(point2[0] - point1[0], 2) +
+			Math.pow(point2[1] - point1[1], 2)
 		);
 	},
 	
-	point2angle: function(aPointA, aPointB) {
+	point2angle: function(point1, point2) {
 		return Math.atan2(
-			aPointB[1] - aPointA[1],
-			aPointB[0] - aPointA[0]
+			point2[1] - point1[1],
+			point2[0] - point1[0]
 		);
 	},
 	
-	pointOfCircle: function(aCenter, iAngle, iRadius) {
+	pointOfCircle: function(point, angle, radius) {
 		return [
-			aCenter[0] + Math.cos(iAngle) * iRadius,
-			aCenter[1] + Math.sin(iAngle) * iRadius
+			point[0] + Math.cos(angle) * radius,
+			point[1] + Math.sin(angle) * radius
 		];
 	},
 	
-	pointOfLine: function(aPointA, aPointB, iDistance) {
+	pointOfLine: function(point1, point2, distance) {
 		return jgen.Math.pointOfCircle(
-			aPointA,
-			jgen.Math.point2angle(aPointA, aPointB),
-			iDistance
+			point1, jgen.Math.point2angle(
+				point1,
+				point2
+			), distance
 		);
 	},
+	
+	pointInRect: [
+		function(aPosition, aSize, aPoint) {
+			return (
+				(aPoint[0] >= aPosition[0]) &&
+				(aPoint[1] >= aPosition[1]) &&
+				(aPoint[0] < aPosition[0] + aSize[0]) &&
+				(aPoint[1] < aPosition[0] + aSize[1])
+			);
+		},
+		function(pos, size, angle, point) {
+			var iHalfWidth = (size[0] * 0.5);
+			var iHalfHeight = (size[1] * 0.5);
+			var aRectCenter = [pos[0] + iHalfWidth, pos[1] + iHalfHeight];
+			
+			var p2 = jgen.Math.pointOfCircle(
+				[iHalfWidth, iHalfHeight],
+				jgen.Math.point2angle(aRectCenter, point) - angle,
+				jgen.Math.point2distance(aRectCenter, point)
+			);
+			
+			return (
+				(p2[0] >= 0 && p2[1] >= 0) &&
+				(p2[0] < size[0] && p2[1] < size[1])
+			);
+		}
+	],
+	
+	
+	
 	
 	pointsOfRect: [
 		function(aPosition, aSize) {
@@ -72,30 +107,6 @@ jsface.def({
 		}
 	],
 	
-	pointInRect: [
-		function(aPosition, aSize, aPoint) {
-			return (
-				(aPoint[0] >= aPosition[0]) &&
-				(aPoint[1] >= aPosition[1]) &&
-				(aPoint[0] < aPosition[0] + aSize[0]) &&
-				(aPoint[1] < aPosition[0] + aSize[1])
-			);
-		},
-		function(aPosition, aSize, iRotation, aPoint) {
-			var iHalfWidth = (aSize[0] * 0.5);
-			var iHalfHeight = (aSize[1] * 0.5);
-			var aRectCenter = [aPosition[0] + iHalfWidth, aPosition[1] + iHalfHeight];
-			return jgen.Math.pointInRect(
-				[-iHalfWidth, -iHalfHeight],
-				aSize,
-				jgen.Math.pointOfCircle(
-					[0, 0],
-					jgen.Math.point2angle(aRectCenter, aPoint) - iRotation,
-					jgen.Math.point2distance(aRectCenter, aPoint)
-				)
-			);
-		}
-	],
 	
 	
 	

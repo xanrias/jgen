@@ -8,7 +8,6 @@ jsface.def({
 		foo: 120
 	},
 	
-	spriteArray: null,
 	spriteFrame: 0,
 	spriteVisible: false,
 	spriteWidth: 0,
@@ -20,11 +19,12 @@ jsface.def({
 	spriteFrames: [],
 	spriteElement: null,
 	
-	Sprite: function(oViewPort, sUrl, iWidth, iHeight, oSpriteArray) {
+	Sprite: function(eventQueue, sUrl, iWidth, iHeight) {
+		this.eventQueue = eventQueue;
 		this.spriteFrames = [];
-		this.spriteArray = oSpriteArray;
 		this.spriteWidth = iWidth;
 		this.spriteHeight = iHeight;
+		var oViewPort = this.eventQueue.getViewPort();
 		if (oViewPort) {
 			this.spriteElement = oViewPort.appendChild(jgen.HTML.setStyle(
 				oViewPort.ownerDocument.createElement('div'), {
@@ -45,7 +45,7 @@ jsface.def({
 	},
 	
 	clone: function() {
-		var oClone = new this.constructor();
+		var oClone = new this.constructor(this.eventQueue);
 		jsface.inherit(oClone, this);
 		oClone.spriteElement = this.spriteElement.parentNode.appendChild(
 			this.spriteElement.cloneNode(true)
@@ -66,7 +66,7 @@ jsface.def({
 	setFrame: function(iFrameNumber, iFrameTo) {
 		if (this.spriteFrame != iFrameNumber) {
 			var aFramePos = this.spriteFrames[this.spriteFrame = iFrameNumber];
-			this.spriteArray.addEvent(this.spriteElement, {
+			this.eventQueue.addEvent(this.spriteElement, {
 				'background-position': aFramePos[0] + 'px ' + aFramePos[1] + 'px'
 			});
 		}
@@ -75,7 +75,7 @@ jsface.def({
 	animateFrames: function(iFrom, iTo, iSkipFrames, fCallBack) {
 		var oThis = this;
 		this.setFrame(iFrom);
-		this.spriteArray.addCallBack(this, function() {
+		this.eventQueue.addCallBack(this, function() {
 			if (iFrom != iTo) {
 				window.top.status = iFrom;
 				this.animateFrames(iFrom + 1, iTo, iSkipFrames, fCallBack);
@@ -91,9 +91,9 @@ jsface.def({
 			if ((this.spriteFrame < iFrom) || (this.spriteFrame >= iTo)) this.spriteFrame = iFrom;
 			this.setFrame(this.spriteFrame + 1);
 			
-			this.spriteArray.addCallBack(this, function() {
+			this.eventQueue.addCallBack(this, function() {
 				oThis.animating = false;
-				this.spriteArray.addCallBack(this, function() {
+				this.eventQueue.addCallBack(this, function() {
 					if ((!oThis.animating) && (fCallBack)) fCallBack.call(oThis);
 				}, iSkipFrames);
 			}, iSkipFrames);
@@ -109,7 +109,7 @@ jsface.def({
 	
 	setVisible: function(bVisible) {
 		if (this.spriteVisible != bVisible) {
-			this.spriteArray.addEvent(this.spriteElement, {
+			this.eventQueue.addEvent(this.spriteElement, {
 				'display': (this.spriteVisible = bVisible ? 'block' : 'none')
 			});
 		}
@@ -121,7 +121,7 @@ jsface.def({
 	
 	setRotation: function(iAngle) {
 		if (this.spriteRotation != iAngle) {
-			this.spriteArray.addEvent(this.spriteElement, {
+			this.eventQueue.addEvent(this.spriteElement, {
 				'-webkit-transform': 'rotate(' + (
 					this.spriteRotation = (iAngle + this.rotationBase)
 				) + 'rad)'
@@ -136,7 +136,7 @@ jsface.def({
 	setPosition: [
 		function(iLeft, iTop) {
 			if ((this.spriteLeft != iLeft) || (this.spriteTop != iTop)) {
-				this.spriteArray.addEvent(this.spriteElement, {
+				this.eventQueue.addEvent(this.spriteElement, {
 					'left': (this.spriteLeft = iLeft) + 'px',
 					'top': (this.spriteTop = iTop) + 'px'
 				});
