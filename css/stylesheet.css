@@ -6,3 +6,21 @@ html, body {
 	overflow: hidden;
 	position: absolute;
 }
+
+.viewPort, .viewPortFrame {
+	width: 640px;
+	height: 480px;
+	left: 50%;
+	top: 50%;
+	margin-left: -320px;
+	margin-top: -240px;
+	position: absolute;
+	overflow: hidden;
+}
+
+.viewPortFrame {
+	margin-top: -241px;
+	margin-left: -321px;
+	border: 1px solid red;
+	opacity: 0.5;
+}
