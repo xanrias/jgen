@@ -9,6 +9,7 @@
   * jgen.String.js
     * [jgenString_camelize camelize]
     * [jgenString_trim trim]
+  * jgen.Event.js
   * jgen.Selector.js
   * jgen.HTML.js
     * [jgenHTML_setStyle setStyle]
