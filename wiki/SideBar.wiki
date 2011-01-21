@@ -9,6 +9,7 @@
   * jgen.String.js
     * [jgenString_camelize camelize]
     * [jgenString_trim trim]
+  * jgen.Selector.js
   * jgen.HTML.js
     * [jgenHTML_setStyle setStyle]
     * [jgenHTML_setClass setClass]
@@ -23,6 +24,7 @@
     * [jgenEventQueue_addCallBack addCallBack]
     * [jgenEventQueue_addEvent addEvent]
     * [jgenEventQueue_processEvents processEvents]
+  * jgen.Map.js
   * jgen.Sprite.js
     * [jgenSprite_constructor constructor]
     * [jgenSprite_clone clone]
