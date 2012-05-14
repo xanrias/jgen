@@ -29,19 +29,19 @@ jsface.def({
 		name: "EventQueue",
 		namespace: jgen
 	},
-	
+
 	events: [],
 	keys: {},
 	mouse: {},
-	
+
 	EventQueue: function(viewPort) {
 		this.viewPort = viewPort;
 	},
-	
+
 	getViewPort: function() {
 		return this.viewPort;
 	},
-	
+
 	start: function(fCallBack, iDelay) {
 		var oThis = this;
 		document.addEventListener('keydown', function(oEvent) {
@@ -54,19 +54,19 @@ jsface.def({
 			oThis.mouse.x = oEvent.pageX;
 			oThis.mouse.y = oEvent.pageY;
 		});
-		setInterval(function() { fCallBack.call(oThis); }, iDelay);
+		setInterval(function() { fCallBack.call(oThis); }, 0);
 	},
-	
+
 	addCallBack: function(oSender, fCallBack, iSkipFrames) {
 		this.events.push([oSender, fCallBack, iSkipFrames ? iSkipFrames : 0, ]);
 	},
-	
+
 	addEvent: function(oSender, oProperties) {
 		this.events.push([oSender, function() {
 			jgen.HTML.setStyle(this, oProperties);
 		}, 0]);
 	},
-	
+
 	processEvents: function() {
 		for (var iLength = this.events.length, c = 0; c < iLength; c++) {
 			var oEvent = this.events[c];
@@ -77,5 +77,5 @@ jsface.def({
 		}
 		this.events.splice(0, iLength);
 	}
-	
+
 });
